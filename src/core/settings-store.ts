@@ -34,8 +34,8 @@ export class SettingsStore {
     this.app = app;
     this.onReload = onReload;
     this.tabEvents = {
-      onChange: this.onChange.bind(this),
-      valueBuilder: this.valueBuilder.bind(this)
+      onChangeSetting: this.onChange.bind(this),
+      getCurrentSetting: this.valueBuilder.bind(this)
     };
 	}
 

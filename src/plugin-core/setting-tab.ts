@@ -5,7 +5,7 @@ import { ExcludeCustomPresetKey } from 'src/types/presets';
 
 
 
-type PluginPreset = 'default' | 'custom' | string;
+export type SettingIds = string;
 
 export type TreeFocusSettings = {
 	preset: PluginPreset;
@@ -17,21 +17,19 @@ export const DEFAULT_SETTINGS: TreeFocusSettings = {
 
 export type SettingsId = 'PLUGIN_PRESET';
 
-export type SettingsTabEvents = {
-  onChange: (id: SettingsId, value: any) => void;
-  valueBuilder: (id: SettingsId) => any;
+export type SettingsTabEvents<T extends SettingIds> = {
+  onChangeSetting: <T>(id: T, value: any) => void;
+  getCurrentSetting: <T>(id: T) => any;
 };
 
-export class SettingTab extends PluginSettingTab {
+export class SettingTab<T extends SettingIds> extends PluginSettingTab {
 
-	plugin: ObsidianPlugin;
-  events: SettingsTabEvents;
+  events: SettingsTabEvents<T>;
 
-	constructor(app: App, plugin: ObsidianPlugin, events: SettingsTabEvents)
+	constructor(app: App, plugin: ObsidianPlugin, events: SettingsTabEvents<T>)
   {
 		super(app, plugin);
     
-		this.plugin = plugin;
     this.events = events;
 	}
 
@@ -58,10 +56,10 @@ export class SettingTab extends PluginSettingTab {
       .addDropdown(dropdown => dropdown
         .addOptions(options)
 				// .setPlaceholder('Enter your secret')
-				.setValue(this.events.valueBuilder('PLUGIN_PRESET'))
+				.setValue(this.events.getCurrentSetting('PLUGIN_PRESET'))
 				.onChange(async (value) =>
         {
-          this.events.onChange('PLUGIN_PRESET', value);
+          this.events.onChangeSetting('PLUGIN_PRESET', value);
 					// this.plugin.settings.preset = value;
 					// await this.plugin.saveSettings();
 				}));

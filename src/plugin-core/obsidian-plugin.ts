@@ -3,6 +3,7 @@ import { App, Plugin, PluginManifest } from 'obsidian';
 import { PluginMeta } from 'src/types/plugin';
 import { Log } from 'src/util/logger';
 import { PluginInfo } from 'src/plugin-core/plugin-info';
+import { P } from 'src/core/plugin';
 
 
 export class ObsidianPlugin extends Plugin {
@@ -10,6 +11,8 @@ export class ObsidianPlugin extends Plugin {
   constructor(app: App, manifest: PluginManifest, meta: PluginMeta)
   {
     super(app, manifest);
+
+    P._internalInit(app, this, manifest);
 
     PluginInfo._internalInit(app, manifest, meta);
   }

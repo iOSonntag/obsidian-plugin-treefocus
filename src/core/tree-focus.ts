@@ -5,6 +5,8 @@ import { Log } from '../util/logger';
 import { SettingsStore } from './settings-store';
 import { SettingTab } from 'src/plugin-core/setting-tab';
 import { FILE_EXPLORER_TYPE } from 'src/obsidian/view-types';
+import { PluginDataStore } from 'src/services/plugin-data-store';
+import { initialSettings } from 'src/_config/initial-settings';
 
 
 export class TreeFocus {
@@ -27,10 +29,16 @@ export class TreeFocus {
   {
     Log.log('initializing core');
 
-    this.settings = new SettingsStore(this.app, this.plugin, this.applyAllStyles.bind(this));
-    this.settingsTab = new SettingTab(this.app, this.plugin, this.settings.tabEvents);
+    await PluginDataStore.init(initialSettings);
 
+    this.settings = new SettingsStore(this.app, this.plugin, this.applyAllStyles.bind(this));
     await this.settings.load();
+
+
+    this.settingsTab = new SettingTab(this.app, this.plugin, {
+      onChangeSetting: (id, value) => {},
+      getCurrentSetting: (id) => {},
+    });
   }
 
   

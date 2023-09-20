@@ -55,6 +55,11 @@ export abstract class PluginInfo {
     return this.manifest.name;
   }
 
+  static get debug(): boolean
+  {
+    return this.meta.debugMode;
+  }
+
   static _internalInit(app: App, manifest: PluginManifest, meta: PluginMeta)
   {
     if (this._manifest || this._obsidianVersion || this._meta)

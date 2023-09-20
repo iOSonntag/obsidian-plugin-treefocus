@@ -49,19 +49,19 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
 
   onLayoutChange(): void
   {
-    Log.obsidianEvent('workspace.layout-change');
+    Log.eventFired('workspace.layout-change');
 
     this.treeFocus.applyAllStyles();
   }
 
   onFileMenu(menu: Menu, file: TAbstractFile, source: string, leaf?: WorkspaceLeaf): any
   {
-    Log.obsidianEvent('workspace.file-menu');
+    Log.eventFired('workspace.file-menu');
   }
 
   onCreateFile(file: TAbstractFile): void
   {
-    Log.obsidianEvent('vault.create');
+    Log.eventFired('vault.create');
 
     // IMPROVE: only reapply style on single file
     this.treeFocus.applyAllStyles();
@@ -69,7 +69,7 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
 
   onDeleteFile(file: TAbstractFile): void
   {
-    Log.obsidianEvent('vault.delete');
+    Log.eventFired('vault.delete');
 
     // IMPROVE: only reapply style on single file
     this.treeFocus.applyAllStyles();
@@ -77,7 +77,7 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
 
   onRenameFile(file: TAbstractFile, oldPath: string): void
   {
-    Log.obsidianEvent('vault.rename');
+    Log.eventFired('vault.rename');
 
     // IMPROVE: only reapply style on single file
     this.treeFocus.applyAllStyles();
