@@ -2,7 +2,7 @@
 import { App, Plugin, PluginManifest } from 'obsidian';
 import { PluginMeta } from 'src/types/plugin';
 import { Log } from 'src/util/logger';
-import { PluginInfo } from 'src/plugin-core/plugin-info';
+import { PluginInfo } from 'src/core/plugin-info';
 import { P } from 'src/core/plugin';
 
 

@@ -1,6 +1,6 @@
 import { P } from 'src/core/plugin';
 import { Log } from 'src/util/logger';
-import * as deepmerge from 'deepmerge';
+import deepmerge from 'deepmerge';
 import { ErrorHelper } from 'src/util/error-helper';
 
 

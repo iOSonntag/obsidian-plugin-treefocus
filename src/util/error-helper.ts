@@ -1,4 +1,4 @@
-import { PluginStrings } from 'src/plugin-core/plugin-strings';
+import { PluginStrings } from 'src/core/plugin-strings';
 import { Log } from './logger';
 
 

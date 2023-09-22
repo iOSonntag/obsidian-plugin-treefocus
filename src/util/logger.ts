@@ -1,4 +1,4 @@
-import { PluginInfo } from 'src/plugin-core/plugin-info';
+import { PluginInfo } from 'src/core/plugin-info';
 
 
 
@@ -16,7 +16,8 @@ export class Log {
   {
     if (!PluginInfo.debug) return;
 
-    console.log(`[INFO] [${PluginInfo.pluginId}]: ${message}`, ...args);
+
+    console.log(`[DEBUG][${PluginInfo.pluginId}]: ${message}`, ...args);
   }
   
 

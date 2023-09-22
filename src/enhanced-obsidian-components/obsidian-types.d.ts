@@ -5,14 +5,14 @@ declare module 'obsidian' {
   export class FileExplorer extends View {
 
     /**
-     * A map of file paths to their corresponding {@link AFItem} items. 
+     * A map of file paths to their corresponding {@link FileExplorerItem} items. 
      * 
      * **ATTENTION**  
      * > This is not populated until the file explorer is ready. Check with the
      * `<FileExplorer>.ready` property. 
      */
     fileItems: { 
-      [key: string]: AFItem 
+      [key: string]: FileExplorerItem 
     };
     ready: boolean;
     files: WeakMap<HTMLDivElement, TAbstractFile>;
@@ -21,7 +21,7 @@ declare module 'obsidian' {
     onClose(): Promise<void>;
   }
 
-  export type AFItem = FolderItem | FileItem;
+  export type FileExplorerItem = FolderItem | FileItem;
 
   export interface FileItem {
     el: HTMLDivElement;
@@ -39,7 +39,7 @@ declare module 'obsidian' {
     selfEl: HTMLDivElement;
     innerEl: HTMLDivElement;
     file: TFolder;
-    children: AFItem[];
+    children: FileExplorerItem[];
     childrenEl: HTMLDivElement;
     collapseIndicatorEl: HTMLDivElement;
     collapsed: boolean;

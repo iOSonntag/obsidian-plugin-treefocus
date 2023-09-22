@@ -1,33 +1,18 @@
 import { ItemFocusMode } from './general';
 
 
-type MatchMethod = 'PATH' | 'REGEX';
+export type MatchMethod = 'EQUALS' | 'CONTAINS' | 'STARTS_WITH' | 'ENDS_WITH' | 'REGEX';
+export type MatchContext = 'NAME' | 'PATH';
 
-type MatcherBase = {
+type Matcher = {
   method: MatchMethod;
+  context: MatchContext;
+  value: string;
 };
 
-type PathMatcher = MatcherBase & {
-  method: 'PATH';
-  path: string;
-};
-
-type RegexMatcher = MatcherBase & {
-  method: 'REGEX';
-  regex: string;
-  /**
-   * If true, the regex will be matched against the full path, otherwise only
-   * the file name.
-   * 
-   * Default: `false`
-   */
-  fullPath: boolean;
-};
-
-type Matcher = PathMatcher | RegexMatcher;
 
 export type Rule = {
-  mather: Matcher;
+  matcher: Matcher;
   mode: ItemFocusMode;
   excludes: Matcher[]
 };

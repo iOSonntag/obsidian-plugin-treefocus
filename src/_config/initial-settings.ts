@@ -1,24 +1,8 @@
-import { PluginsSettings as PluginSettings } from 'src/core/settings-store';
+import { DEFAULT_RULES, SettingsObject } from 'src/core/plugin-settings';
 
 
-export const initialSettings: PluginSettings = {
-  preset: 'DEFAULT',
-  rules: [],
-  fileOverwrites: {},
-  transforms: {
-    HIGHLIGHT: {
-      underline: false,
-      italic: false,
-      bold: false,
-      fontFactor: 0,
-      opacity: 0
-    },
-    DIM: {
-      underline: false,
-      italic: false,
-      bold: false,
-      fontFactor: 0,
-      opacity: 0
-    }
-  },
+export const initialSettings: SettingsObject = {
+  transformPreset: 'DEFAULT',
+  rules: DEFAULT_RULES,
+  fileOverwrites: {}
 };

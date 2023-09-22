@@ -1,12 +1,13 @@
-import { AFItem, App, FileExplorer, Plugin as ObsidianPlugin, PluginManifest, debounce } from 'obsidian';
-import { determinateFocusMode } from '../services/mode-determination-service';
-import { applyStyleIfNeeded, resetAllDOMStyleChanges } from '../services/dom-style-service';
+import { App, FileExplorer, Plugin as ObsidianPlugin, PluginManifest, debounce } from 'obsidian';
 import { Log } from '../util/logger';
-import { SettingsStore } from './settings-store';
-import { SettingTab } from 'src/plugin-core/setting-tab';
-import { FILE_EXPLORER_TYPE } from 'src/obsidian/view-types';
+import { FILE_EXPLORER_TYPE } from 'src/enhanced-obsidian-components/view-types';
 import { PluginDataStore } from 'src/services/plugin-data-store';
 import { initialSettings } from 'src/_config/initial-settings';
+import { SettingsView } from 'src/views/settings-view';
+import { FileExplorerHelper } from 'src/util/file-explorer-helper';
+import { CssTool } from 'src/util/css-tool';
+import { ModeEvaluationService } from 'src/services/mode-evaluation-service';
+import { PluginSettings } from 'src/core/plugin-settings';
 
 
 export class TreeFocus {
@@ -15,8 +16,10 @@ export class TreeFocus {
   plugin: ObsidianPlugin;
   manifest: PluginManifest;
 
-  settings: SettingsStore;
-  settingsTab: SettingTab;
+  // settings: SettingsStore;
+  settingsView: SettingsView;
+  private refreshDebouncer: () => void;
+
 
   constructor(app: App, plugin: ObsidianPlugin, manifest: PluginManifest)
   {
@@ -29,53 +32,94 @@ export class TreeFocus {
   {
     Log.log('initializing core');
 
+    this.refreshDebouncer = debounce(
+      () => this.refresh(),
+      1000,
+      true
+    );
+
     await PluginDataStore.init(initialSettings);
 
-    this.settings = new SettingsStore(this.app, this.plugin, this.applyAllStyles.bind(this));
-    await this.settings.load();
+    const rules = PluginSettings.get('rules');
+    const fileOverwrites = PluginSettings.get('fileOverwrites');
+    ModeEvaluationService.updateConfig(rules, fileOverwrites);
 
-
-    this.settingsTab = new SettingTab(this.app, this.plugin, {
-      onChangeSetting: (id, value) => {},
-      getCurrentSetting: (id) => {},
-    });
+    this.settingsView = new SettingsView(() => this.onSettingsChanged());
   }
 
-  
-  applyAllStyles = debounce(
-    () => this.applyAllStylesDebounced(),
-    1000,
-    true
-  ).bind(this);
-
-  applyStyleOnItem = debounce(
-    (item: AFItem) => this.applyStyleOnItemDebounced(item),
-    200,
-    true
-  );
-
-  private applyStyleOnItemDebounced(item: AFItem)
+  requestRefresh(): void
   {
-    this.updateItemIfNeeded(item);
+    Log.log('refresh requested');
+
+    this.refreshDebouncer();
   }
 
-  private applyAllStylesDebounced()
+  onSettingsChanged(): void
   {
-    Log.log('applying styles');
+    Log.log('settings changed');
 
-    let explorers = this.getFileExplorers();
-    this.resetAllModifications(explorers);
-    let items = this.getAllFileItemsFromExplorers();
+    const rules = PluginSettings.get('rules');
+    const fileOverwrites = PluginSettings.get('fileOverwrites');
+    ModeEvaluationService.updateConfig(rules, fileOverwrites);
 
-    items.forEach((item) =>
+    this.requestRefresh();
+  }
+
+  private refresh(): void
+  {
+    Log.log('refreshing');
+    
+    this.removeElementChanges();
+    this.addElementChanges();
+  }
+
+  private removeElementChanges(): void
+  {
+    Log.log('removing element changes');
+
+    let fileExplorers = this.getFileExplorers();
+
+    for (let fiExplorer of fileExplorers)
     {
-      this.updateItemIfNeeded(item);
-    });
+      FileExplorerHelper.forEveryItem(fiExplorer, (path, item) =>
+      {
+        CssTool.removeDataAttribute(item.selfEl, 'treefocusTheme');
+        CssTool.removeDataAttribute(item.selfEl, 'treefocusMode');
+      });
+    }
+
+  }
+
+
+
+  private addElementChanges(): void
+  {
+    Log.log('adding element changes');
+
+    let fileExplorers = this.getFileExplorers();
+    const transformPreset = PluginSettings.get('transformPreset');
+    Log.debug('transform preset', transformPreset);
+
+    for (let fiExplorer of fileExplorers)
+    {
+      FileExplorerHelper.forEveryItem(fiExplorer, (path, item) =>
+      {
+        const mode = ModeEvaluationService.evaluateMode(path, item.file.name);
+
+        if (mode === 'DEFAULT')
+        {
+          return;
+        }
+
+        CssTool.applyDataAttribute(item.selfEl, 'treefocusTheme', transformPreset);
+        CssTool.applyDataAttribute(item.selfEl, 'treefocusMode', mode);
+      });
+    }
   }
 
   private getFileExplorers(): FileExplorer[]
   {
-    Log.log('getting file explorers');
+    Log.debug('getting file explorers');
 
     let list = this.app.workspace.getLeavesOfType(FILE_EXPLORER_TYPE);
 
@@ -84,49 +128,12 @@ export class TreeFocus {
       return leaf.view as FileExplorer;
     });
 
-    Log.log('found file explorers', finalList);
+    Log.debug('found file explorers', finalList);
 
     return finalList;
   }
 
-  /**
-   * If no explorers are provided, a new list of all explorers will be fetched.
-   */
-  private getAllFileItemsFromExplorers(explorers?: FileExplorer[]): AFItem[]
-  {
-    Log.log('getting all file items from all explorers');
-
-    explorers = explorers ?? this.getFileExplorers();
-
-    let items: AFItem[] = [];
-
-    explorers.forEach((explorer) =>
-    {
-      if (!explorer.ready)
-      {
-        Log.warn('found a file explorer that is not ready yet (might be critical)', explorer);
-      }
-
-      items.push(...Object.values(explorer.fileItems));
-    });
-
-    return items;
-  }
-
-
-
-  public updateItemIfNeeded(item: AFItem): void
-  {
-    let mode = determinateFocusMode(item, this.settings.rules, this.settings.fileOverwrites);
-
-    applyStyleIfNeeded(this.settings.transforms, item, mode)
-  }
-
-  // TODO: refactor
-  public resetAllModifications(explorers: FileExplorer[]): void
-  {
-    resetAllDOMStyleChanges(explorers);
-  }
+  
 }
 
 

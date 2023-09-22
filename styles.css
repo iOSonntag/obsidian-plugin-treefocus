@@ -7,3 +7,59 @@ If your plugin does not need CSS, delete this file.
 
 */
 
+/* TRANSFORMATION STYLES */
+
+.tree-item-self[data-treefocus-theme="DEFAULT"][data-treefocus-mode="HIGHLIGHT"] {
+  font-size: calc(var(--nav-item-size) * 2.3);
+}
+
+.tree-item-self[data-tree-focus="DIM"] {
+  font-size: calc(var(--nav-item-size) * 0.7);
+}
+
+/* OBSIDIAN CLASS REF */
+
+/* full cell
+.tree-item-self {
+  align-items: baseline;
+  display: flex;
+  border-radius: var(--radius-s);
+  color: var(--nav-item-color);
+  font-size: var(--nav-item-size);
+  line-height: var(--line-height-tight);
+  font-weight: var(--nav-item-weight);
+  margin-bottom: var(--size-2-1);
+  padding: var(--nav-item-padding);
+  position: relative;
+} */
+
+/* title  
+.tree-item-inner {
+
+} */
+
+
+
+/* SETTINGS TAB */
+
+
+body {
+  --setting-section-spacing: calc(var(--p-spacing) * 2);
+}
+
+.setting-section-divider {
+  height: var(--setting-section-spacing);
+}
+
+.setting-section-description {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  padding-top: var(--size-4-1);
+  padding-bottom: var(--p-spacing);
+  line-height: var(--line-height-tight);
+  white-space: pre-wrap;
+}
+
+h3:has(+ .setting-section-description), h2:has(+ .setting-section-description) {
+  margin-block-end: 0px;
+}

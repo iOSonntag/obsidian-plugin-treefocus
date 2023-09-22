@@ -1,9 +1,9 @@
 {
 	"id": "treefocus",
-	"name": "Tree Focus",
-	"version": "0.0.1",
+	"name": "TreeFocus",
+	"version": "0.8.1",
 	"minAppVersion": "1.2.0",
-	"description": "Highlight, dim & style your files & folders in the file explorer. Customizable rules available.",
+	"description": "Highlight, dim & style your files & folders in the file explorer (navigation) based on predefined or custom rules.",
 	"author": "iOSonntag",
 	"authorUrl": "https://iOSonntag.com",
 	"fundingUrl": "https://iOSonntag.com/buy-me-a-coffee",

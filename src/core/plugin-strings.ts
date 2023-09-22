@@ -10,7 +10,7 @@ export abstract class PluginStrings {
     return `\n\n!!! UNEXPECTED !!!\n
     You discovered a bug in the plugin '${PluginInfo.manifest.name}'. I kindly ask you to report this issue on GitHub.
     
-    This way you & all other people can profit from your discovery! :)
+    This way you & all other people can benefit from your discovery! :)
     
     
     Please include the following information in your report:

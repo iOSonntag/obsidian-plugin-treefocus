@@ -1,8 +1,8 @@
 import { App, FileExplorer, Menu, PluginManifest, TAbstractFile, WorkspaceLeaf } from 'obsidian';
 import { pluginMetaData } from 'src/_config/meta';
 import { TreeFocus } from 'src/core/tree-focus';
-import { ObsidianPlugin } from 'src/plugin-core/obsidian-plugin';
-import { FILE_EXPLORER_TYPE } from 'src/obsidian/view-types';
+import { ObsidianPlugin } from 'src/enhanced-obsidian-components/obsidian-plugin';
+import { FILE_EXPLORER_TYPE } from 'src/enhanced-obsidian-components/view-types';
 import { Log } from 'src/util/logger';
 
 export default class TreeFocusPlugin extends ObsidianPlugin {
@@ -25,16 +25,16 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
     // Obsidian recommends wrapping every event listeners into
     // this.registerEvent() - but this is an exception because it gets only
     // called once.
-    this.app.workspace.onLayoutReady(this.onLayoutChange.bind(this));
+    this.app.workspace.onLayoutReady(() => this.treeFocus.requestRefresh());
 
-    this.registerEvent(this.app.workspace.on('layout-change', this.onLayoutChange.bind(this)));
-    this.registerEvent(this.app.workspace.on('file-menu', this.onFileMenu.bind(this)));
+    this.registerEvent(this.app.workspace.on('layout-change', () => this.onObsidianEvent('workspace.layout-change')));
+    this.registerEvent(this.app.workspace.on('file-menu', (menu, file, source, leaf) => this.onFileMenu(menu, file, source, leaf)));
 
-    this.registerEvent(this.app.vault.on('create', this.onDeleteFile.bind(this)));
-    this.registerEvent(this.app.vault.on('delete', this.onDeleteFile.bind(this)));
-    this.registerEvent(this.app.vault.on('rename', this.onRenameFile.bind(this)));
+    this.registerEvent(this.app.vault.on('create', () => this.onObsidianEvent('vault.create')));
+    this.registerEvent(this.app.vault.on('delete', () => this.onObsidianEvent('vault.delete')));
+    this.registerEvent(this.app.vault.on('rename', () => this.onObsidianEvent('vault.rename')));
 
-    this.addSettingTab(this.treeFocus.settingsTab);
+    this.addSettingTab(this.treeFocus.settingsView);
 
     Log.log('obsidian plugin skeleton loading complete');
   }
@@ -47,11 +47,11 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
     return list.map((leaf) => leaf.view as FileExplorer);
   }
 
-  onLayoutChange(): void
+  onObsidianEvent(name: string): void
   {
-    Log.eventFired('workspace.layout-change');
+    Log.eventFired(name);
 
-    this.treeFocus.applyAllStyles();
+    this.treeFocus.requestRefresh();
   }
 
   onFileMenu(menu: Menu, file: TAbstractFile, source: string, leaf?: WorkspaceLeaf): any
@@ -59,29 +59,6 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
     Log.eventFired('workspace.file-menu');
   }
 
-  onCreateFile(file: TAbstractFile): void
-  {
-    Log.eventFired('vault.create');
-
-    // IMPROVE: only reapply style on single file
-    this.treeFocus.applyAllStyles();
-  }
-
-  onDeleteFile(file: TAbstractFile): void
-  {
-    Log.eventFired('vault.delete');
-
-    // IMPROVE: only reapply style on single file
-    this.treeFocus.applyAllStyles();
-  }
-
-  onRenameFile(file: TAbstractFile, oldPath: string): void
-  {
-    Log.eventFired('vault.rename');
-
-    // IMPROVE: only reapply style on single file
-    this.treeFocus.applyAllStyles();
-  }
 
 
 
