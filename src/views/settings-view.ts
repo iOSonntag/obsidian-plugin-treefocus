@@ -40,7 +40,7 @@ export class SettingsView extends ObsidianSettingsTab {
 
 	constructor(onUpdateSettings: () => void)
   {
-		super(P.app, P.plugin, `${PluginInfo.pluginName} Settings`);
+		super(P.app, P.plugin);
 
     this.onUpdateSettings = onUpdateSettings;
 	}
@@ -119,7 +119,7 @@ export class SettingsView extends ObsidianSettingsTab {
 
 
     context.createSectionDivider();
-    context.createSectionHeader('Support This Plugin', 'If you like this plugin, please consider supporting it by buying me a coffee. Thank you!');
+    context.createSectionHeader('Support This Plugin', 'If you like this plugin and want to support it, you can buy me a coffee. :)');
 
     context.createSupportLinks('iOSonntag', 'https://paypal.com/paypalme/iOSonntag/20');
   }

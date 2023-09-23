@@ -26,6 +26,17 @@ jobs:
           pnpm install
           pnpm run build
 
+      - name: Update version files and create tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Updating version files to $VERSION"
+          pnpm run version
+          git commit -am "Update version files to $VERSION"
+          git push
+          git tag -a $VERSION -m "$VERSION"
+
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

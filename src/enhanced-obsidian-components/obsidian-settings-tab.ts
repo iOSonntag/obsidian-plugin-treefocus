@@ -32,13 +32,9 @@ export type SettingsContext = {
 
 export abstract class ObsidianSettingsTab extends PluginSettingTab {
 
-  title?: string;
-
-	constructor(app: App, plugin: Plugin, title?: string)
+	constructor(app: App, plugin: Plugin)
   {
 		super(app, plugin);
-
-    this.title = title;
 	}
 
   /**
@@ -103,11 +99,6 @@ export abstract class ObsidianSettingsTab extends PluginSettingTab {
         this.didUpdateSettings();
       }
     };
-
-    if (this.title)
-    {
-      rootElement.createEl('h2', { text: this.title });
-    }
 
     this.build(context);
 	}
