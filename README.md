@@ -9,11 +9,11 @@ based on predefined or custom rules.
 <br/>
 
 ## Example Result
-<img src="resources/treefocus_01.png?raw=true" width="200">
+<img src="resources/treefocus_01.png?raw=true" width="300">
 
 <br/>
 
-The screenshot is a result of choosing the Transformation Theme `Fancy` and is
+The screenshot is a result of choosing the **Transformation Theme** `Fancy` and is
 based on the following set of rules:
 
 <br/>
@@ -33,6 +33,17 @@ You can configure the behavior of this plugin by either defining general rules
 or explicitly set the transformation mode per file / folder.
 
 <img src="resources/settings_01.png?raw=true" width="400">
+
+
+<br/>
+<br/>
+
+## Item Based Configurations
+
+Right clicking on an item in the file explorer gives you options to explicitly
+apply focus modes. This overwrites all defined rules and can be reset at any time.
+
+<img src="resources/context_menu_01.png?raw=true" width="200">
 
 
 <br/>
