@@ -9,9 +9,11 @@ based on predefined or custom rules.
 <img src="resources/treefocus_01.png?raw=true" width="200">
 
 <br/>
+
 The screenshot is a result of choosing the Transformation Theme `Fancy` and is
 based on the following set of rules:
 
+<br/>
 <br/>
 
 
