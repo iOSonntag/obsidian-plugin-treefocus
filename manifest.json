@@ -1,16 +1,16 @@
 {
 	"id": "treefocus",
 	"name": "TreeFocus",
-	"version": "0.3.5",
+	"version": "0.9.1",
 	"minAppVersion": "1.2.0",
 	"description": "Highlight, dim & style your files & folders in the file explorer (navigation) based on predefined or custom rules.",
 	"author": "iOSonntag",
 	"authorUrl": "https://iOSonntag.com",
 	"isDesktopOnly": false,
-  "fundingUrl": {
-    "Buy Me a Coffee": "https://www.buymeacoffee.com/iOSonntag",
-    "GitHub Sponsor": "https://github.com/sponsors/iOSonntag",
-    "PayPal": "https://paypal.com/paypalme/iOSonntag/20",
-    "Homepage": "https://iOSonntag.com/buy-me-a-coffee"
-  }
+	"fundingUrl": {
+		"Buy Me a Coffee": "https://www.buymeacoffee.com/iOSonntag",
+		"GitHub Sponsor": "https://github.com/sponsors/iOSonntag",
+		"PayPal": "https://paypal.com/paypalme/iOSonntag/20",
+		"Homepage": "https://iOSonntag.com/buy-me-a-coffee"
+	}
 }
