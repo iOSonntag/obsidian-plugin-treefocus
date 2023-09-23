@@ -5,6 +5,9 @@ based on predefined or custom rules.
 
 > Also works in combination with `obsidian-iconize` / `obsidian-icon-folder` plugin! Hurray 🕺 🎊 🎉 !
 
+<br/>
+<br/>
+
 ## Example Result
 <img src="resources/treefocus_01.png?raw=true" width="200">
 
@@ -21,6 +24,9 @@ based on the following set of rules:
   - `/More`
 
 
+<br/>
+<br/>
+
 ## Settings
 
 You can configure the behavior of this plugin by either defining general rules
@@ -29,10 +35,16 @@ or explicitly set the transformation mode per file / folder.
 <img src="resources/settings_01.png?raw=true" width="400">
 
 
+<br/>
+<br/>
+
 ## Bugs
 
 Report bugs at: [TreeFocus - GitHub Repository](https://github.com/iOSonntag/obsidian-plugin-treefocus/issues)
 
+
+<br/>
+<br/>
 
 ## Contribution
 
@@ -41,6 +53,9 @@ Pull requests are **WELCOME** !
 > If you have improvements or feel like you can solve a bug, please do not
 > hesitate to submit a pull requests. Even if you think you might not be skilled
 > enough. That's pure bullsh*t. We are all beginners - all the time :)
+
+<br/>
+<br/>
 
 ## Support
 
