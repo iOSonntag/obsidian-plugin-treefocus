@@ -1,4 +1,4 @@
-name: Release Obsidian plugin
+name: build
 
 on:
   push:
@@ -44,9 +44,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tag="${GITHUB_REF#refs/tags/}"
+          VERSION=$(node -p "require('./package.json').version")
 
-          gh release create "$tag" \
-            --title="$tag" \
-            --draft \
+          gh release create "$VERSION" \
+            --title="Release v$VERSION" \
             main.js manifest.json styles.css
