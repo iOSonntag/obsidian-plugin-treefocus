@@ -40,7 +40,7 @@ or explicitly set the transformation mode per file / folder.
 
 ## Item Based Configurations
 
-Right clicking on an item in the file explorer gives you options to explicitly
+Right click on an item in the file explorer gives you options to explicitly
 apply focus modes. This overwrites all defined rules and can be reset at any time.
 
 <img src="resources/context_menu_01.png?raw=true" width="200">
