@@ -34,7 +34,7 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
     this.registerEvent(this.app.vault.on('delete', () => this.onObsidianEvent('vault.delete')));
     this.registerEvent(this.app.vault.on('rename', () => this.onObsidianEvent('vault.rename')));
 
-    this.addSettingTab(this.treeFocus.settingsView);
+    this.addSettingTab(this.treeFocus.getSettingsView());
 
     Log.log('obsidian plugin skeleton loading complete');
   }

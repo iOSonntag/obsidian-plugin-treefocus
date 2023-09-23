@@ -8,6 +8,7 @@ import { FileExplorerHelper } from 'src/util/file-explorer-helper';
 import { CssTool } from 'src/util/css-tool';
 import { ModeEvaluationService } from 'src/services/mode-evaluation-service';
 import { PluginSettings } from 'src/core/plugin-settings';
+import { ErrorHelper } from 'src/util/error-helper';
 
 
 export class TreeFocus {
@@ -17,9 +18,18 @@ export class TreeFocus {
   manifest: PluginManifest;
 
   // settings: SettingsStore;
-  settingsView: SettingsView;
-  private refreshDebouncer: () => void;
+  private settingsView?: SettingsView;
+  private refreshDebouncer?: () => void;
 
+  getSettingsView(): SettingsView
+  {
+    if (!this.settingsView)
+    {
+      throw ErrorHelper.pluginBug('settingsView is not set');
+    }
+
+    return this.settingsView;
+  }
 
   constructor(app: App, plugin: ObsidianPlugin, manifest: PluginManifest)
   {
@@ -143,8 +153,14 @@ export class TreeFocus {
   {
     Log.log('refresh requested');
 
+    if (!this.refreshDebouncer)
+    {
+      throw ErrorHelper.pluginBug('refreshDebouncer is not set');
+    } 
+    
     this.refreshDebouncer();
   }
+
 
   /**
    * Fired when the settings of the plugin have changed.
