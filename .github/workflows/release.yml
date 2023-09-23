@@ -33,7 +33,10 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           echo "Updating version files to $VERSION"
           pnpm run version
-          git commit -am "Update version files to $VERSION"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -am "CI/CD: Updated version files to $VERSION"
           git push
           git tag -a $VERSION -m "$VERSION"
 
