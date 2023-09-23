@@ -2,7 +2,7 @@ import { App, FileExplorer, Menu, PluginManifest, TAbstractFile, WorkspaceLeaf }
 import { pluginMetaData } from 'src/_config/meta';
 import { TreeFocus } from 'src/core/tree-focus';
 import { ObsidianPlugin } from 'src/enhanced-obsidian-components/obsidian-plugin';
-import { FILE_EXPLORER_TYPE } from 'src/enhanced-obsidian-components/view-types';
+import { SOURCE_TYPE_FILE_EXPLORER_CONTEXT_MENU, VIEW_TYPE_FILE_EXPLORER } from 'src/enhanced-obsidian-components/known-type-keys';
 import { Log } from 'src/util/logger';
 
 export default class TreeFocusPlugin extends ObsidianPlugin {
@@ -42,7 +42,7 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
 
   getFileExplorers(): FileExplorer[]
   {
-    let list = this.app.workspace.getLeavesOfType(FILE_EXPLORER_TYPE);
+    let list = this.app.workspace.getLeavesOfType(VIEW_TYPE_FILE_EXPLORER);
 
     return list.map((leaf) => leaf.view as FileExplorer);
   }
@@ -57,6 +57,11 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
   onFileMenu(menu: Menu, file: TAbstractFile, source: string, leaf?: WorkspaceLeaf): any
   {
     Log.eventFired('workspace.file-menu');
+    Log.debug('menu', menu, 'file', file, 'source', source, 'leaf', leaf);
+
+    if (source !== SOURCE_TYPE_FILE_EXPLORER_CONTEXT_MENU) return;
+
+    this.treeFocus.onOpenFileExplorerContextMenu(menu, file);
   }
 
 

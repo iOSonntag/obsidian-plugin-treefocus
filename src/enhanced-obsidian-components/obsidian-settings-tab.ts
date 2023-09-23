@@ -27,6 +27,7 @@ export type SettingsContext = {
    * and call {@link settingsUpdated}.
    */
   applySettings: () => void;
+  createSupportLinks: (buyMeACoffee?: string, payPalUrl?: string) => void;
 };
 
 export abstract class ObsidianSettingsTab extends PluginSettingTab {
@@ -62,6 +63,40 @@ export abstract class ObsidianSettingsTab extends PluginSettingTab {
         }
       },
       createSectionDivider: () => rootElement.createDiv({ cls: 'setting-section-divider' }),
+      createSupportLinks: (buyMeACoffeeUsername?: string, payPalUrl?: string) =>
+      {
+        if (buyMeACoffeeUsername)
+        {
+          rootElement.createEl('br');
+          const parentEl = rootElement.createEl('a', { 
+            href: `https://www.buymeacoffee.com/${buyMeACoffeeUsername}`,
+          });
+          parentEl.createEl('img', {
+            attr: {
+              src: 'https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png',
+              alt: 'Buy Me A Coffee',
+              style: 'height: 60px !important;width: 217px !important;'
+            }
+          });
+          rootElement.createEl('br');
+        }
+        
+        if (payPalUrl)
+        {
+          rootElement.createEl('br');
+          const parentEl = rootElement.createEl('a', { 
+            href: payPalUrl,
+          });
+          parentEl.createEl('img', {
+            attr: {
+              src: 'https://www.paypalobjects.com/webstatic/de_DE/i/de-pp-logo-200px.png',
+              alt: 'Donate with PayPal',
+              style: 'height: 60px !important;width: 217px !important;'
+            }
+          });
+          rootElement.createEl('br');
+        }
+      },
       applySettings: () =>
       {
         this.display();

@@ -15,6 +15,7 @@ export abstract class ErrorHelper {
   public static pluginBug(message: string): Error
   {
     let finalMessage = message;
+    
 
     try
     {

@@ -1,6 +1,6 @@
-import { App, FileExplorer, Plugin as ObsidianPlugin, PluginManifest, debounce } from 'obsidian';
+import { App, FileExplorer, Menu, MenuItem, Plugin as ObsidianPlugin, PluginManifest, TAbstractFile, debounce } from 'obsidian';
 import { Log } from '../util/logger';
-import { FILE_EXPLORER_TYPE } from 'src/enhanced-obsidian-components/view-types';
+import { VIEW_TYPE_FILE_EXPLORER } from 'src/enhanced-obsidian-components/known-type-keys';
 import { PluginDataStore } from 'src/services/plugin-data-store';
 import { initialSettings } from 'src/_config/initial-settings';
 import { SettingsView } from 'src/views/settings-view';
@@ -34,7 +34,7 @@ export class TreeFocus {
 
     this.refreshDebouncer = debounce(
       () => this.refresh(),
-      1000,
+      100,
       true
     );
 
@@ -47,6 +47,98 @@ export class TreeFocus {
     this.settingsView = new SettingsView(() => this.onSettingsChanged());
   }
 
+  onOpenFileExplorerContextMenu(menu: Menu, file: TAbstractFile): void
+  {
+    Log.debug('open file explorer context menu', menu, file);
+
+    menu.addSeparator();
+
+    const explicitMode = ModeEvaluationService.getExplicitModeIfSet(file.path);
+
+
+    const itemHeadline= (item: MenuItem) => {
+      item.setTitle('TreeFocus');
+      item.setDisabled(true);
+    };
+
+    const highlighted = explicitMode === 'HIGHLIGHT';
+    const itemHighlight = (item: MenuItem) => {
+      item.setTitle('Highlight');
+      item.setChecked(highlighted);
+      item.onClick(async () =>
+      {
+        if (highlighted)
+        {
+          await PluginSettings.removeExplicitMode(file.path);
+        }
+        else
+        {
+          await PluginSettings.setExplicitMode(file.path, 'HIGHLIGHT');
+        }
+
+        this.requestRefresh();
+      });
+    };
+
+
+    const dimmed = explicitMode === 'DIM';
+    const itemDim = (item: MenuItem) => {
+      item.setTitle('Dim');
+      item.setChecked(dimmed);
+      item.onClick(async () =>
+      {
+        if (dimmed)
+        {
+          await PluginSettings.removeExplicitMode(file.path);
+        }
+        else
+        {
+          await PluginSettings.setExplicitMode(file.path, 'DIM');
+        }
+        this.requestRefresh();
+      });
+    };
+
+    const explicitDefault = explicitMode === 'DEFAULT';
+    const itemExplicitDefault = (item: MenuItem) => {
+      item.setTitle('Default (rule overwrite)');
+      item.setChecked(explicitDefault);
+      item.onClick(async () =>
+      {
+        if (explicitDefault)
+        {
+          await PluginSettings.removeExplicitMode(file.path);
+        }
+        else
+        {
+          await PluginSettings.setExplicitMode(file.path, 'DEFAULT');
+        }
+        this.requestRefresh();
+      });
+    };
+
+    const itemReset = (item: MenuItem) => {
+      item.setTitle('Reset...');
+      item.setDisabled(explicitMode === undefined);
+      item.onClick(async () =>
+      {
+        await PluginSettings.removeExplicitMode(file.path);
+        this.requestRefresh();
+      });
+    };
+
+    menu.addItem(itemHeadline);
+    menu.addItem(itemHighlight);
+    menu.addItem(itemDim);
+    menu.addItem(itemExplicitDefault);
+    menu.addItem(itemReset);
+    
+  }
+
+  /**
+   * Use this method to request a refresh of the changes made to obsidian by the
+   * tree focus plugin.
+   */
   requestRefresh(): void
   {
     Log.log('refresh requested');
@@ -54,6 +146,9 @@ export class TreeFocus {
     this.refreshDebouncer();
   }
 
+  /**
+   * Fired when the settings of the plugin have changed.
+   */
   onSettingsChanged(): void
   {
     Log.log('settings changed');
@@ -65,6 +160,9 @@ export class TreeFocus {
     this.requestRefresh();
   }
 
+  /**
+   * Refreshes the changes made to obsidian by the tree focus plugin.
+   */
   private refresh(): void
   {
     Log.log('refreshing');
@@ -73,6 +171,9 @@ export class TreeFocus {
     this.addElementChanges();
   }
 
+  /**
+   * Removes all changes made to obsidian by the tree focus plugin.
+   */
   private removeElementChanges(): void
   {
     Log.log('removing element changes');
@@ -91,7 +192,9 @@ export class TreeFocus {
   }
 
 
-
+  /**
+   * Adds all obsidian modifications by the tree focus plugin.
+   */
   private addElementChanges(): void
   {
     Log.log('adding element changes');
@@ -117,11 +220,14 @@ export class TreeFocus {
     }
   }
 
+  /**
+   * Gets all file explorers in the current workspace.
+   */
   private getFileExplorers(): FileExplorer[]
   {
     Log.debug('getting file explorers');
 
-    let list = this.app.workspace.getLeavesOfType(FILE_EXPLORER_TYPE);
+    let list = this.app.workspace.getLeavesOfType(VIEW_TYPE_FILE_EXPLORER);
 
     let finalList = list.map((leaf) =>
     {

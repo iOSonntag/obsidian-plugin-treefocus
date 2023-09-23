@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
-	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"name": "obsidian-treefocus",
+	"version": "0.3.1",
+	"description": "Obsidian plugin: Highlight, dim & style your files & folders in the file explorer (navigation) based on predefined or custom rules.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
@@ -20,5 +20,8 @@
 		"obsidian": "latest",
 		"tslib": "2.4.0",
 		"typescript": "4.7.4"
+	},
+	"dependencies": {
+		"deepmerge": "^4.3.1"
 	}
 }

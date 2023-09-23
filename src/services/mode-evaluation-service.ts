@@ -16,11 +16,14 @@ export abstract class ModeEvaluationService {
     this.files = files;
   }
 
+  static getExplicitModeIfSet(path: string): ItemFocusMode | undefined
+  {
+    return this.files[path];
+  }
+
   static evaluateMode(path: string, name: string): ItemFocusMode
   {
-    let mode = 'DEFAULT';
-
-    const explicitMode = this.files[path];
+    const explicitMode = this.getExplicitModeIfSet(path);
 
     if (explicitMode)
     {

@@ -1,96 +1,57 @@
-# Obsidian Sample Plugin
+# Obsidian Plugin: TreeFocus
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+Highlight, dim & style your files & folders in the file explorer (navigation)
+based on predefined or custom rules.
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+> Also works in combination with `obsidian-iconize` / `obsidian-icon-folder` plugin! Hurray 🕺 🎊 🎉 !
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
+## Example Result
+<img src="resources/treefocus_01.png?raw=true" width="200">
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+<br/>
+The screenshot is a result of choosing the Transformation Theme `Fancy` and
+based on the following rules:
 
-## First time developing plugins?
+<br/>
 
-Quick starting guide for new plugin devs:
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+- activate `DIM` mode on all files / folders starting with `"_"`
+- explicitly activate mode `HIGHLIGHT` on:
+  - `/Backend`
+  - `/More`
 
-## Releasing new releases
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+## Settings
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+You can configure the behavior of this plugin by either defining general rules
+or explicitly set the transformation mode per file / folder.
 
-## Adding your plugin to the community plugin list
+<img src="resources/settings_01.png?raw=true" width="400">
 
-- Check https://github.com/obsidianmd/obsidian-releases/blob/master/plugin-review.md
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
 
-## How to use
+## Bugs
 
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+Report bugs at: [TreeFocus - GitHub Repository](https://github.com/iOSonntag/obsidian-plugin-treefocus/issues)
 
-## Manually installing the plugin
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+## Contribution
 
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
+Pull requests are **WELCOME** !
 
-## Funding URL
+> If you have improvements or feel like you can solve a bug, please do not
+> hesitate to submit a pull requests. Even if you think you might not be skilled
+> enough. That's pure bullsh*t. We are all beginners - all the time :)
 
-You can include funding URLs where people who use your plugin can financially support it.
+## Support
 
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
+If you find this useful - feel free to buy me a coffee :)
 
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
-```
+<a href="https://www.buymeacoffee.com/iOSonntag" target="_blank"><img
+src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A
+Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-If you have multiple URLs, you can also do:
-
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
-```
-
-## API Documentation
-
-See https://github.com/obsidianmd/obsidian-api
+or direct via
+- [Buy Me A Coffee](https://www.buymeacoffee.com/iOSonntag)
+- [GitHub Sponsor](https://github.com/sponsors/iOSonntag)
+- [PayPal](https://paypal.com/paypalme/iOSonntag/20)
+- [Homepage](https://iOSonntag.com/buy-me-a-coffe)

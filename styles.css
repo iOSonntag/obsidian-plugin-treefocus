@@ -9,13 +9,153 @@ If your plugin does not need CSS, delete this file.
 
 /* TRANSFORMATION STYLES */
 
-.tree-item-self[data-treefocus-theme="DEFAULT"][data-treefocus-mode="HIGHLIGHT"] {
-  font-size: calc(var(--nav-item-size) * 2.3);
+body {
+  --iconize-icon-size: 16px;
+
+  --treefocus-highlight-font-scale: 1.0;
+  --treefocus-highlight-font-weight: var(--nav-item-weight);
+  --treefocus-highlight-opacity: 1.0;
+  --treefocus-highlight-box-shadow: none;
+  --treefocus-highlight-background: none;
+  --treefocus-highlight-color: var(--nav-item-color);
+  --treefocus-highlight-border: none;
+  --treefocus-highlight-border-radius: var(--radius-s);
+  /* --treefocus-highlight-padding-h: var(--nav-item-padding); */
+  /* --treefocus-highlight-padding-v: var(--nav-item-padding); */
+  /* --treefocus-highlight-icon-padding: 4px; */
+  /* --treefocus-highlight-icon-spacing: 6px; */
+  /* --treefocus-highlight-icon-background: var(--text-accent); */
+  /* --treefocus-highlight-icon-color: var(--nav-item-color); */
+  --treefocus-highlight-line-height-addition: 1.0;
+
+  --treefocus-dim-font-scale: 1.0;
+  --treefocus-dim-font-weight: var(--nav-item-weight);
+  --treefocus-dim-opacity: 1.0;
+  --treefocus-dim-box-shadow: none;
+  --treefocus-dim-background: none;
+  --treefocus-dim-color: var(--nav-item-color);
+  --treefocus-dim-border: none;
+  --treefocus-dim-border-radius: var(--radius-s);
+  /* --treefocus-dim-padding-h: var(--nav-item-padding); */
+  /* --treefocus-dim-padding-v: var(--nav-item-padding); */
+  /* --treefocus-dim-icon-padding: 4px; */
+  /* --treefocus-dim-icon-spacing: 6px; */
+  /* --treefocus-dim-icon-background: var(--text-accent); */
+  /* --treefocus-dim-icon-color: var(--nav-item-color); */
+  --treefocus-dim-line-height-addition: 1.0;
 }
 
-.tree-item-self[data-tree-focus="DIM"] {
-  font-size: calc(var(--nav-item-size) * 0.7);
+.tree-item-self[data-treefocus-theme="DEFAULT"] {
+  --treefocus-highlight-font-scale: 1.3;
+  --treefocus-highlight-font-weight: 700;
+
+  --treefocus-dim-font-scale: 0.7;
+  --treefocus-dim-opacity: 0.5;
 }
+
+.tree-item-self[data-treefocus-theme="DELIGHT"] {
+  --treefocus-highlight-font-scale: 1.2;
+  --treefocus-highlight-font-weight: 700;
+
+  --treefocus-dim-font-scale: 0.86;
+  --treefocus-dim-opacity: 0.7;
+
+}
+
+.tree-item-self[data-treefocus-theme="FANCY"] {
+  --treefocus-highlight-font-scale: 1.2;
+  --treefocus-highlight-font-weight: 700;
+  /* --treefocus-highlight-box-shadow: 0px 0px 0px 1px var(--color-base-00); */
+  /* --treefocus-highlight-border: 1px solid var(--background-primary); */
+  /* --treefocus-highlight-border: 1.5px solid var(--text-accent); */
+  --treefocus-highlight-border-radius: 30px;
+  --treefocus-highlight-background: var(--color-base-100);
+  --treefocus-highlight-color: var(--color-base-30);
+  --treefocus-highlight-padding-h: 12px;
+  --treefocus-highlight-padding-v: 2px;
+  --treefocus-highlight-line-height-addition: 1.0;
+  --treefocus-highlight-icon-padding: 4px;
+  --treefocus-highlight-icon-spacing: 6px;
+  --treefocus-highlight-icon-background: var(--text-accent);
+  --treefocus-highlight-icon-color: var(--color-base-100);
+
+  --treefocus-dim-font-scale: 0.7;
+  --treefocus-dim-opacity: 0.4;
+}
+
+.tree-item-self[data-treefocus-mode="HIGHLIGHT"] {
+  font-size:      calc(var(--nav-item-size) * var(--treefocus-highlight-font-scale));
+  line-height:    calc(var(--line-height-tight) * var(--treefocus-highlight-font-scale) * var(--treefocus-highlight-line-height-addition));
+  font-weight:    var(--treefocus-highlight-font-weight) !important;
+  color:          var(--treefocus-highlight-color);
+}
+.tree-item-self[data-treefocus-mode="DIM"] {
+  font-size:      calc(var(--nav-item-size) * var(--treefocus-dim-font-scale));
+  line-height:    calc(var(--line-height-tight) * var(--treefocus-dim-font-scale) * var(--treefocus-dim-line-height-addition));
+  font-weight:    var(--treefocus-dim-font-weight) !important;
+  color:          var(--treefocus-dim-color);
+}
+
+.tree-item-self[data-treefocus-mode="HIGHLIGHT"]:hover {
+  color:          var(--treefocus-highlight-color) !important;
+}
+.tree-item-self[data-treefocus-mode="DIM"]:hover {
+  color:          var(--treefocus-dim-color) !important;
+}
+
+.tree-item-self[data-treefocus-mode="HIGHLIGHT"] .tree-item-inner {
+  opacity:        var(--treefocus-highlight-opacity);
+  box-shadow:     var(--treefocus-highlight-box-shadow);
+  border:         var(--treefocus-highlight-border);
+  border-radius:  var(--treefocus-highlight-border-radius);
+  background:     var(--treefocus-highlight-background);
+  padding:        var(--treefocus-highlight-padding-v) var(--treefocus-highlight-padding-h) ;
+}
+.tree-item-self[data-treefocus-mode="DIM"] .tree-item-inner {
+  opacity:        var(--treefocus-dim-opacity);
+  box-shadow:     var(--treefocus-dim-box-shadow);
+  border:         var(--treefocus-dim-border);
+  border-radius:  var(--treefocus-dim-border-radius);
+  background:     var(--treefocus-dim-background);
+  padding:        var(--treefocus-dim-padding-v) var(--treefocus-dim-padding-h) ;
+}
+
+
+
+
+
+
+.tree-item-self[data-treefocus-mode="HIGHLIGHT"] .obsidian-icon-folder-icon {
+  background:     var(--treefocus-highlight-icon-background, var(--treefocus-highlight-background));
+  border-radius:  var(--treefocus-highlight-border-radius);
+  padding:        calc(var(--treefocus-highlight-icon-padding));
+  margin-right:   var(--treefocus-highlight-icon-spacing) !important;
+  color:          var(--treefocus-highlight-icon-color, var(--treefocus-highlight-color));  
+}
+.tree-item-self[data-treefocus-mode="DIM"] .obsidian-icon-folder-icon {
+  background:     var(--treefocus-dim-icon-background, var(--treefocus-dim-background));
+  border-radius:  var(--treefocus-dim-border-radius);
+  padding:        calc(var(--treefocus-dim-icon-padding));
+  margin-right:   var(--treefocus-dim-icon-spacing) !important;
+  color:          var(--treefocus-dim-icon-color, var(--treefocus-dim-color));  
+}
+
+
+.tree-item-self[data-treefocus-mode="HIGHLIGHT"] .obsidian-icon-folder-icon svg {
+  --treefocus-iconize-icon-size: calc(var(--iconize-icon-size) * var(--treefocus-highlight-font-scale));
+
+  width:          var(--treefocus-iconize-icon-size);
+  height:         var(--treefocus-iconize-icon-size);
+  opacity:        var(--treefocus-highlight-opacity);
+}
+.tree-item-self[data-treefocus-mode="DIM"] .obsidian-icon-folder-icon svg {
+  --treefocus-iconize-icon-size: calc(var(--iconize-icon-size) * var(--treefocus-dim-font-scale));
+
+  width:          var(--treefocus-iconize-icon-size);
+  height:         var(--treefocus-iconize-icon-size);
+  opacity:        var(--treefocus-dim-opacity);
+}
+
 
 /* OBSIDIAN CLASS REF */
 

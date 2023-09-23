@@ -101,6 +101,7 @@ export class SettingsView extends ObsidianSettingsTab {
       this.createRule(context, rules, i);
     }
 
+    
     context.createSectionDivider();
     context.createSectionHeader('Explicit Transformations', 'Items with explicit transformation configuration. To add an item, right click it in the file explorer and select "Set Treefocus".');
 
@@ -111,9 +112,16 @@ export class SettingsView extends ObsidianSettingsTab {
     for (let i = 0; i < keys.length; i++)
     {
 
+
       const key = keys[i];
       this.createFileOverwrite(context, fileOverwrites, key);
     }
+
+
+    context.createSectionDivider();
+    context.createSectionHeader('Support This Plugin', 'If you like this plugin, please consider supporting it by buying me a coffee. Thank you!');
+
+    context.createSupportLinks('iOSonntag', 'https://paypal.com/paypalme/iOSonntag/20');
   }
 
   createRule(context: SettingsContext, rules: Rule[], index: number): void

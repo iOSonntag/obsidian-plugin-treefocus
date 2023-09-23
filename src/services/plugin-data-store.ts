@@ -28,8 +28,8 @@ export abstract class PluginDataStore {
 
     let storedData = await P.plugin.loadData();
 
-    let data = defaultData ? defaultData : {};
-    this._data = storedData ? deepmerge(data, storedData) : data;
+    defaultData = defaultData ? defaultData : {};
+    this._data = storedData ? storedData : defaultData;
 
     Log.debug('done loading plugin data store', this._data);
   }
