@@ -14,8 +14,6 @@ The screenshot is a result of choosing the Transformation Theme `Fancy` and is
 based on the following set of rules:
 
 <br/>
-<br/>
-
 
 - activate `DIM` mode on all files / folders starting with `"_"`
 - explicitly activate mode `HIGHLIGHT` on:
