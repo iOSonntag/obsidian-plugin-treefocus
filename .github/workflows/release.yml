@@ -38,7 +38,7 @@ jobs:
           git add .
           git commit -am "CI/CD: Updated version files to $VERSION"
           git tag -a $VERSION -m "$VERSION"
-          git push
+          git push origin $VERSION
 
       - name: Create release
         env:
