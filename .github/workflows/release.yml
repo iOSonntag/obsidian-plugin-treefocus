@@ -37,8 +37,8 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -am "CI/CD: Updated version files to $VERSION"
-          git push
           git tag -a $VERSION -m "$VERSION"
+          git push
 
       - name: Create release
         env:
