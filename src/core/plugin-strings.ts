@@ -18,7 +18,7 @@ export abstract class PluginStrings {
     \t- ${PluginInfo.humanIdentifier}
     \t- Obsidian @ v${PluginInfo.obsidianVersion}
     
-    Link for issue the report:
+    Link for issue reporting:
     
     \t${PluginInfo.meta.reportIssuesUrl}
     
