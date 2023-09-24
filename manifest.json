@@ -1,7 +1,7 @@
 {
 	"id": "treefocus",
 	"name": "TreeFocus",
-	"version": "0.4.0",
+	"version": "1.0.1",
 	"minAppVersion": "1.2.0",
 	"description": "Highlight, dim & style your files & folders in the file explorer (navigation) based on predefined or custom rules.",
 	"author": "iOSonntag",
