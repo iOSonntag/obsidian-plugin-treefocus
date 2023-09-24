@@ -70,4 +70,4 @@ jobs:
           git config user.email github-actions@github.com
           git commit -am "chore(release): v${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION }} [skip ci]\\n\\n${{ steps.chkVersion.outputs.NEXT_RELEASE_NOTES }}"
           git tag -a $VERSION -m "$VERSION"
-          git push --tags
+          git push --follow-tags
