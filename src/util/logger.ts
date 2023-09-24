@@ -5,7 +5,7 @@ import { PluginInfo } from 'src/core/plugin-info';
 export class Log {
 
   /**
-     * Logs only if {@link PluginInfo.debug} mode is enabled.
+     * Logs only if `process.env.NODE_ENV !== 'production'`.
      * 
      * Adds useful information to the log message and then logs it using `console.log`.
      * 
@@ -14,7 +14,7 @@ export class Log {
      */
   static debug(message: string, ...args: any[])
   {
-    if (!PluginInfo.debug) return;
+    if (process.env.NODE_ENV === 'production') return;
 
 
     console.log(`[DEBUG][${PluginInfo.pluginId}]: ${message}`, ...args);
