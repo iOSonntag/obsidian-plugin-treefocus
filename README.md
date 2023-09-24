@@ -9,20 +9,27 @@ Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubuse
 ### Ever wanted to (*dim*) a `File` or `Folder`?  
 *For rarely used or unimportant `Files` or `Folders`.*  
 
-**Examples:**
+**Example:**
+<br/>
+<br/>
+<img src="resources/treefocus_dim_01.png?raw=true" width="100">
 - `/_SYS/` (maybe for your template and attachment Folders)
 - `/some_dir/not_in_use/` (storing some irrelevant data)
 
 ### Or maybe **HIGHLIGHT** some `Files` and `Folders`?
 
 *For the good stuff.*  
-**Examples:**  
+
+**Example:**
+<br/>
+<br/>
+<img src="resources/treefocus_highlight_01.png?raw=true" width="100">
 - `/Main/`
 - `/VeryImportantFolder_DoNotDelete_Plz/`
 
 ### Or any other imaginable config for your file explorer items?
 
-*🍀 🍀 🍀 Good Fortune has arrived! This plugin makes it happen! :D 🍀 🍀 🍀*
+*✅ This plugin might do the trick!*
 
 
 
