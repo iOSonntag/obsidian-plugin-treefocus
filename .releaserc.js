@@ -27,12 +27,12 @@ module.exports = {
         ]
       }
     ],
-    // [
-    //   "@semantic-release/exec",
-    //   {
-    //     "verifyReleaseCmd": "echo \"NEXT_RELEASE_VERSION=${nextRelease.version}\" >> $GITHUB_OUTPUT"
-    //   }
-    // ],
+    [
+      "@semantic-release/exec",
+      {
+        "verifyReleaseCmd": "echo \"NEXT_RELEASE_VERSION=${nextRelease.version}\" >> $GITHUB_OUTPUT"
+      }
+    ],
     "@semantic-release/release-notes-generator",
     [
       "@semantic-release/changelog",
@@ -46,19 +46,28 @@ module.exports = {
         "npmPublish": false 
       }
     ],
-    // "@semantic-release/github",
-    // [
-    //   "@semantic-release/git",
-    //   {
-    //     "assets": [
-    //       "package.json",
-    //       "package-lock.json",
-    //       "CHANGELOG.md"
-    //     ],
-    //     "message": "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-    //   }
-    // ]
+    [
+      "@semantic-release/exec",
+      {
+        "populateVersion": "pnpm run version"
+      }
+    ],
+    "@semantic-release/github",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "package.json",
+          "package-lock.json",
+          "pnpm-lock.yaml",
+          "manifest.json",
+          "versions.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
   ],
-  "dryRun": true,
+  "dryRun": false,
   "preset": "angular"
 };
