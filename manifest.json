@@ -3,10 +3,17 @@
 	"name": "TreeFocus",
 	"version": "1.0.8",
 	"minAppVersion": "1.2.0",
-	"description": "Highlight, dim & style your files & folders in the file explorer (navigation) based on predefined or custom rules.",
+	"description": "Dim, highlight & style your files & folders in the vault file explorer (foldable item navigator) based on predefined / custom rules.",
 	"author": "iOSonntag",
 	"authorUrl": "https://iOSonntag.com",
 	"isDesktopOnly": false,
+  "repository": {
+    "type": "git",
+    "provider": "GitHub",
+    "providerUrl": "https://github.com",
+    "repoUrl": "https://github.com/iOSonntag/obsidian-plugin-treefocus",
+    "issuesUrl": "https://github.com/iOSonntag/obsidian-plugin-treefocus/issues"
+  },
 	"fundingUrl": {
 		"Buy Me a Coffee": "https://www.buymeacoffee.com/iOSonntag",
 		"GitHub Sponsor": "https://github.com/sponsors/iOSonntag",

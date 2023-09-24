@@ -13,7 +13,10 @@
 		"commitlint": "commitlint --edit"
 	},
 	"keywords": [],
-	"author": "iOSonntag",
+	"author": {
+    "name": "iOSonntag",
+    "url": "https://iOSonntag.com"
+  },
 	"homepage": "https://iOSonntag.com",
 	"license": "MIT",
 	"devDependencies": {

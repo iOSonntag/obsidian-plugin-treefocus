@@ -8,7 +8,7 @@ export abstract class PluginStrings {
   static get pluginBugAppendix(): string
   {
     return `\n\n!!! UNEXPECTED !!!\n
-    You discovered a bug in the plugin '${PluginInfo.manifest.name}'. I kindly ask you to report this issue on GitHub.
+    You discovered a bug in the plugin '${PluginInfo.manifest.name}'. I kindly ask you to report this issue on ${PluginInfo.manifest.repository?.provider ?? 'NOT_SET'}.
     
     This way you & all other people can benefit from your discovery! :)
     
@@ -20,7 +20,7 @@ export abstract class PluginStrings {
     
     Link for issue reporting:
     
-    \t${PluginInfo.meta.reportIssuesUrl}
+    \t${PluginInfo.manifest.repository?.issuesUrl ?? 'NOT_SET'}
     
     
     `;
