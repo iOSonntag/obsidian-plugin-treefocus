@@ -119,7 +119,7 @@ export class SettingsView extends ObsidianSettingsTab {
 
 
     context.createSectionDivider();
-    context.createSectionHeader('Support This Plugin', 'If you like this plugin and want to support it, you can buy me a coffee. :)');
+    context.createSectionHeader('Support This Plugin', 'If you like this plugin and want to support it - submit a feature request, a pull request or simply buy me a little coffee :) - Thank You.');
 
     context.createSupportLinks('iOSonntag', 'https://paypal.com/paypalme/iOSonntag/20');
   }
