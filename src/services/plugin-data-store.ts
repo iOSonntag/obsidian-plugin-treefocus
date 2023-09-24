@@ -1,4 +1,4 @@
-import { P } from 'src/core/plugin';
+import { Bundle } from 'src/core/plugin-bundle';
 import { Log } from 'src/util/logger';
 import deepmerge from 'deepmerge';
 import { ErrorHelper } from 'src/util/error-helper';
@@ -26,7 +26,7 @@ export abstract class PluginDataStore {
     Log.log('loading plugin data store');
     Log.debug('default data', defaultData);
 
-    let storedData = await P.plugin.loadData();
+    let storedData = await Bundle.plugin.loadData();
 
     defaultData = defaultData ? defaultData : {};
     this._data = storedData ? storedData : defaultData;
@@ -71,7 +71,7 @@ export abstract class PluginDataStore {
 
     this._data[key] = data;
 
-    await P.plugin.saveData(this._data);
+    await Bundle.plugin.saveData(this._data);
   }
 
 
@@ -100,7 +100,7 @@ export abstract class PluginDataStore {
 
     this._data = data;
 
-    await P.plugin.saveData(this._data);
+    await Bundle.plugin.saveData(this._data);
   }
 
   /**

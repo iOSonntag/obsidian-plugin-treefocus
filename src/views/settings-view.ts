@@ -1,8 +1,8 @@
 import { PluginInfo } from '../core/plugin-info';
-import { P } from 'src/core/plugin';
+import { Bundle } from 'src/core/plugin-bundle';
 import { ObsidianSettingsTab, SettingsContext } from 'src/enhanced-obsidian-components/obsidian-settings-tab';
 import { PluginSettings, TransformPresetKey } from 'src/core/plugin-settings';
-import { FilesFocusModeMap, MatchContext, MatchMethod, Rule } from 'src/types/rules';
+import { FilesFocusModeMap, MatchContext, MatchMethod, MatchingRule } from 'src/types/matching-rules';
 import { RulesHelper } from 'src/util/rules-helper';
 import { ImpactfulItemFocusModes, ItemFocusMode } from 'src/types/general';
 import { Log } from 'src/util/logger';
@@ -40,7 +40,7 @@ export class SettingsView extends ObsidianSettingsTab {
 
 	constructor(onUpdateSettings: () => void)
   {
-		super(P.app, P.plugin);
+		super(Bundle.app, Bundle.plugin);
 
     this.onUpdateSettings = onUpdateSettings;
 	}
@@ -79,7 +79,7 @@ export class SettingsView extends ObsidianSettingsTab {
         .setButtonText('Reset to Defaults')
         .onClick(async () =>
         {
-          await PluginSettings.resetRules();
+          await PluginSettings.resetMatchingRules();
           context.applySettings();
         }))
       .addButton(button => button
@@ -124,7 +124,7 @@ export class SettingsView extends ObsidianSettingsTab {
     context.createSupportLinks('iOSonntag', 'https://paypal.com/paypalme/iOSonntag/20');
   }
 
-  createRule(context: SettingsContext, rules: Rule[], index: number): void
+  createRule(context: SettingsContext, rules: MatchingRule[], index: number): void
   {
     const rule = rules[index];
 

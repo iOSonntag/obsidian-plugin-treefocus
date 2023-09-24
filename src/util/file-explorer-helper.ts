@@ -6,6 +6,9 @@ import { Log } from 'src/util/logger';
 
 export abstract class FileExplorerHelper {
 
+  /**
+   * Iterates over every item in the given file explorer and calls the callback with the path and the item.
+   */
   static forEveryItem(fileExplorer: FileExplorer, callback: (path: string, item: FileExplorerItem) => void): void
   {
     if (!fileExplorer.ready)
@@ -20,7 +23,6 @@ export abstract class FileExplorerHelper {
     for (let fiPath of paths)
     {
       let item = fileExplorer.fileItems[fiPath];
-
 
       callback(fiPath, item);
     }

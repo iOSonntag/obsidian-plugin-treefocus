@@ -1,5 +1,4 @@
 import { App, FileExplorer, Menu, PluginManifest, TAbstractFile, WorkspaceLeaf } from 'obsidian';
-import { pluginMetaData } from 'src/_config/meta';
 import { TreeFocus } from 'src/core/tree-focus';
 import { ObsidianPlugin } from 'src/enhanced-obsidian-components/obsidian-plugin';
 import { SOURCE_TYPE_FILE_EXPLORER_CONTEXT_MENU, VIEW_TYPE_FILE_EXPLORER } from 'src/enhanced-obsidian-components/known-type-keys';
@@ -11,7 +10,7 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
 
   constructor(app: App, manifest: PluginManifest)
   {
-    super(app, manifest, pluginMetaData);
+    super(app, manifest);
 
     this.treeFocus = new TreeFocus(app, this, manifest);
   }
@@ -25,14 +24,14 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
     // Obsidian recommends wrapping every event listeners into
     // this.registerEvent() - but this is an exception because it gets only
     // called once.
-    this.app.workspace.onLayoutReady(() => this.treeFocus.requestRefresh());
+    this.app.workspace.onLayoutReady(() => this.treeFocus.requestInitialRefresh());
 
     this.registerEvent(this.app.workspace.on('layout-change', () => this.onObsidianEvent('workspace.layout-change')));
     this.registerEvent(this.app.workspace.on('file-menu', (menu, file, source, leaf) => this.onFileMenu(menu, file, source, leaf)));
 
     this.registerEvent(this.app.vault.on('create', () => this.onObsidianEvent('vault.create')));
-    this.registerEvent(this.app.vault.on('delete', () => this.onObsidianEvent('vault.delete')));
-    this.registerEvent(this.app.vault.on('rename', () => this.onObsidianEvent('vault.rename')));
+    this.registerEvent(this.app.vault.on('rename', (file, oldPath) => this.onFileEventRename(file, oldPath)));
+    this.registerEvent(this.app.vault.on('delete', (file) => this.onFileEventDelete(file)));
 
     this.addSettingTab(this.treeFocus.getSettingsView());
 
@@ -43,14 +42,24 @@ export default class TreeFocusPlugin extends ObsidianPlugin {
   getFileExplorers(): FileExplorer[]
   {
     let list = this.app.workspace.getLeavesOfType(VIEW_TYPE_FILE_EXPLORER);
-
     return list.map((leaf) => leaf.view as FileExplorer);
+  }
+
+  onFileEventRename(file: TAbstractFile, oldPath: string): void
+  {
+    Log.eventFired('vault.rename', 'file', file, 'oldPath', oldPath);
+    this.treeFocus.onFileMoved(file.path, oldPath);
+  }
+
+  onFileEventDelete(file: TAbstractFile): void
+  {
+    Log.eventFired('vault.delete', 'file', file);
+    this.treeFocus.onFileDeleted(file.path);
   }
 
   onObsidianEvent(name: string): void
   {
     Log.eventFired(name);
-
     this.treeFocus.requestRefresh();
   }
 

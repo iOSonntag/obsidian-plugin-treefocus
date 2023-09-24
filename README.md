@@ -7,16 +7,20 @@ Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubuse
 [![build](https://github.com/iOSonntag/obsidian-plugin-treefocus/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/iOSonntag/obsidian-plugin-treefocus/actions/workflows/release.yml)
 
 ### Ever wanted to (*dim*) a `File` or `Folder`?  
-> **For example:**  
-> *System* like Folder: `/_SYS/`  
-> (maybe for your template and attachment Folders)
+*For rarely used or unimportant `Files` or `Folders`.*  
+
+**Examples:**
+- `/_SYS/` (maybe for your template and attachment Folders)
+- `/some_dir/not_in_use/` (storing some irrelevant data)
 
 ### Or maybe **HIGHLIGHT** some `Files` and `Folders`?
 
-> **For example:**  
-> Root Folders like: `/_Backend/` or `/More/`
+*For the good stuff.*  
+**Examples:**  
+- `/Main/`
+- `/VeryImportantFolder_DoNotDelete_Plz/`
 
-### Or any other imaginable item focus config for your file explorer?
+### Or any other imaginable config for your file explorer items?
 
 *🍀 🍀 🍀 Good Fortune has arrived! This plugin makes it happen! :D 🍀 🍀 🍀*
 
@@ -113,9 +117,11 @@ Please report any issues at: [TreeFocus - GitHub Repository](https://github.com/
 
 Pull requests are **WELCOME** !
 
-> If you have improvements or feel like you can solve a bug, please do not
-> hesitate to submit a pull requests. Even if you think you might not be skilled
-> enough. That is pure bullsh*t. We are all beginners - all the time :)
+If you have improvements or feel like you can solve a bug, please do not
+hesitate to submit a pull requests. 
+
+**Even if you think you might not be skilled
+enough. That is pure bullsh*t. We are all beginners - all the time :)**
 
 <br/>
 <br/>
@@ -125,8 +131,6 @@ Pull requests are **WELCOME** !
 If you like this plugin and want to support it - submit a feature request, a
 pull request or simply buy me
 a little coffee :) - Thank You.
-
-If you find this useful - feel free to buy me a coffee :)
 
 <a href="https://www.buymeacoffee.com/iOSonntag" target="_blank"><img
 src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A

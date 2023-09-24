@@ -1,9 +1,8 @@
 import { SettingsObject } from 'src/core/plugin-settings';
-import { Rule } from 'src/types/rules';
+import { MatchingRule } from 'src/types/matching-rules';
 
-export const DEFAULT_RULES = (): Rule[] => [
+export const DEFAULT_RULES = (): MatchingRule[] => [
   {
-    
     matcher: {
       method: 'STARTS_WITH',
       value: '_',

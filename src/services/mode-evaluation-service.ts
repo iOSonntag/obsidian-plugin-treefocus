@@ -1,5 +1,6 @@
+import { PluginSettings } from 'src/core/plugin-settings';
 import { ItemFocusMode } from 'src/types/general';
-import { FilesFocusModeMap, Rule } from 'src/types/rules';
+import { FilesFocusModeMap, MatchingRule } from 'src/types/matching-rules';
 import { Log } from 'src/util/logger';
 import { RulesHelper } from 'src/util/rules-helper';
 
@@ -7,23 +8,18 @@ import { RulesHelper } from 'src/util/rules-helper';
 
 export abstract class ModeEvaluationService {
 
-  static rules: Rule[];
-  static files: FilesFocusModeMap;
-
-  static updateConfig(rules: Rule[], files: FilesFocusModeMap): void
-  {
-    this.rules = rules;
-    this.files = files;
-  }
-
-  static getExplicitModeIfSet(path: string): ItemFocusMode | undefined
-  {
-    return this.files[path];
-  }
-
+  /**
+   * Evaluates the mode for the given path and name of a file or folder.
+   * 
+   * Explicit mode is prioritized over rules.
+   * 
+   * If no explicit mode is set, the rules are evaluated in order of their
+   * appearance in the settings. 
+   * The first rule that matches the path or name of the file or folder is used.
+   */
   static evaluateMode(path: string, name: string): ItemFocusMode
   {
-    const explicitMode = this.getExplicitModeIfSet(path);
+    const explicitMode = PluginSettings.getExplicitMode(path);
 
     if (explicitMode)
     {
@@ -32,27 +28,27 @@ export abstract class ModeEvaluationService {
       return explicitMode;
     }
 
-    for (const rule of this.rules)
+    for (const fiMatchingRule of PluginSettings.getMatchingRules())
     {
-      if (RulesHelper.ruleIsValid(rule) === false)
+      if (RulesHelper.ruleIsValid(fiMatchingRule) === false)
       {
         continue;
       }
 
-      if (this.matchesRule(path, name, rule))
+      if (this.matchesRule(path, name, fiMatchingRule))
       {
         Log.debug('item matched rule');
         Log.debug('path:', path);
-        Log.debug('mode:', rule.mode);
+        Log.debug('mode:', fiMatchingRule.mode);
 
-        return rule.mode;
+        return fiMatchingRule.mode;
       }
     }
 
     return 'DEFAULT';
   }
 
-  static matchesRule(path: string, name: string, rule: Rule): boolean
+  static matchesRule(path: string, name: string, rule: MatchingRule): boolean
   {
     const matcher = rule.matcher;
 
@@ -75,27 +71,27 @@ export abstract class ModeEvaluationService {
     }
   }
 
-  static matchesEquals(value: string, matcher: { value: string }): boolean
+  private static matchesEquals(value: string, matcher: { value: string }): boolean
   {
     return value === matcher.value;
   }
 
-  static matchesContains(value: string, matcher: { value: string }): boolean
+  private static matchesContains(value: string, matcher: { value: string }): boolean
   {
     return value.includes(matcher.value);
   }
 
-  static matchesStartsWith(value: string, matcher: { value: string }): boolean
+  private static matchesStartsWith(value: string, matcher: { value: string }): boolean
   {
     return value.startsWith(matcher.value);
   }
 
-  static matchesEndsWith(value: string, matcher: { value: string }): boolean
+  private static matchesEndsWith(value: string, matcher: { value: string }): boolean
   {
     return value.endsWith(matcher.value);
   }
 
-  static matchesRegex(value: string, matcher: { value: string }): boolean
+  private static matchesRegex(value: string, matcher: { value: string }): boolean
   {
     const regex = new RegExp(matcher.value);
     return regex.test(value);

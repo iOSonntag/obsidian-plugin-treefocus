@@ -3,7 +3,7 @@ import { App as ObsidianApp, Plugin as ObsidianPlugin, PluginManifest as Obsidia
 import { ErrorHelper } from 'src/util/error-helper';
 
 
-export abstract class P {
+export abstract class Bundle {
 
   private static _app?: WeakRef<ObsidianApp>;
   private static _plugin?: WeakRef<ObsidianPlugin>;

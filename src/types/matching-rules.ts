@@ -11,7 +11,7 @@ type Matcher = {
 };
 
 
-export type Rule = {
+export type MatchingRule = {
   matcher: Matcher;
   mode: ItemFocusMode;
   excludes: Matcher[]

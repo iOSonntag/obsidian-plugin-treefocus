@@ -1,8 +1,8 @@
-import { Rule } from 'src/types/rules';
+import { MatchingRule } from 'src/types/matching-rules';
 
 export abstract class RulesHelper {
 
-  static createRule(): Rule
+  static createRule(): MatchingRule
   {
     return {
       matcher: {
@@ -15,7 +15,7 @@ export abstract class RulesHelper {
     };
   }
 
-  static ruleIsValid(rule: Rule): boolean
+  static ruleIsValid(rule: MatchingRule): boolean
   {
     return rule.matcher.value.length > 0;
   }

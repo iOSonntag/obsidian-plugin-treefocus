@@ -1,14 +1,22 @@
 import { App, PluginManifest, apiVersion } from 'obsidian';
 import { ErrorHelper } from '../util/error-helper';
-import { PluginMeta } from 'src/types/plugin';
 
-
-
+type HttpsUrl = `https://${string}`;
+type RepositoryType = 'git' | 'hg' | 'svn';
+type RepositoryProvider = 'GitHub' | 'GitLab' | 'Bitbucket' | 'Gitea' | 'Gogs' | 'Custom';
+interface TreeFocusPluginManifest extends PluginManifest {
+  repository?: {
+    type?: RepositoryType;
+    provider?: RepositoryProvider;
+    providerUrl?: HttpsUrl;
+    repoUrl?: HttpsUrl;
+    issuesUrl?: HttpsUrl;
+  }
+}
 export abstract class PluginInfo {
 
   private static _obsidianVersion: string;
-  private static _manifest: PluginManifest;
-  private static _meta: PluginMeta;
+  private static _manifest: TreeFocusPluginManifest;
 
   static get obsidianVersion()
   {
@@ -20,7 +28,7 @@ export abstract class PluginInfo {
     return this._obsidianVersion;
   };
 
-  static get manifest(): PluginManifest
+  static get manifest(): TreeFocusPluginManifest
   {
     if (!this._manifest)
     {
@@ -28,16 +36,6 @@ export abstract class PluginInfo {
     }
 
     return this._manifest;
-  }
-
-  static get meta(): PluginMeta
-  {
-    if (!this._meta)
-    {
-      throw ErrorHelper.pluginBug('Trying to access meta before it was set.');
-    }
-
-    return this._meta;
   }
 
   static get humanIdentifier(): string
@@ -55,20 +53,14 @@ export abstract class PluginInfo {
     return this.manifest.name;
   }
 
-  static get debug(): boolean
+  static _internalInit(app: App, manifest: PluginManifest)
   {
-    return this.meta.debugMode;
-  }
-
-  static _internalInit(app: App, manifest: PluginManifest, meta: PluginMeta)
-  {
-    if (this._manifest || this._obsidianVersion || this._meta)
+    if (this._manifest || this._obsidianVersion)
     {
       throw ErrorHelper.pluginBug('Trying to set plugin info twice.');
     }
 
     this._obsidianVersion = apiVersion;
     this._manifest = manifest;
-    this._meta = meta;
   }
 }

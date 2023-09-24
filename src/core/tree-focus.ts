@@ -44,15 +44,12 @@ export class TreeFocus {
 
     this.refreshDebouncer = debounce(
       () => this.refresh(),
-      100,
+      50,
       true
     );
 
     await PluginDataStore.init(initialSettings);
 
-    const rules = PluginSettings.get('rules');
-    const fileOverwrites = PluginSettings.get('fileOverwrites');
-    ModeEvaluationService.updateConfig(rules, fileOverwrites);
 
     this.settingsView = new SettingsView(() => this.onSettingsChanged());
   }
@@ -63,7 +60,7 @@ export class TreeFocus {
 
     menu.addSeparator();
 
-    const explicitMode = ModeEvaluationService.getExplicitModeIfSet(file.path);
+    const explicitMode = PluginSettings.getExplicitMode(file.path);
 
 
     const itemHeadline= (item: MenuItem) => {
@@ -146,6 +143,53 @@ export class TreeFocus {
   }
 
   /**
+   * Use this method to request the first run of changes made to obsidian by the
+   * tree focus plugin.
+   */
+  requestInitialRefresh(): void
+  {
+    Log.log('initial refresh requested');
+
+    setTimeout(() =>
+    {
+      this.performPluginCleanupTask();
+    }, 500);
+
+
+    this.requestRefresh();
+  }
+
+  /**
+   * Use this method to clean the plugin. Currently this method does the
+   * following:
+   * 
+   * - checks for orphaned explicit file modes stored and removes them.
+   */
+  private async performPluginCleanupTask(): Promise<void>
+  {
+    const allItemPaths: string[] = [];
+    let fileExplorers = this.getFileExplorers();
+
+    for (let fiExplorer of fileExplorers)
+    {
+      FileExplorerHelper.forEveryItem(fiExplorer, (path, item) =>
+      {
+        allItemPaths.push(path);
+      });
+    }
+
+    const availableExplicitPaths = [...PluginSettings.getExplicitModePaths()];
+    const orphanedExplicitPaths = availableExplicitPaths.filter((path) => allItemPaths.includes(path) === false);
+    
+    Log.debug('orphaned explicit paths', orphanedExplicitPaths);
+
+    for (const orphanedPath of orphanedExplicitPaths)
+    {
+      await PluginSettings.removeExplicitMode(orphanedPath);
+    }
+  }
+
+  /**
    * Use this method to request a refresh of the changes made to obsidian by the
    * tree focus plugin.
    */
@@ -161,17 +205,48 @@ export class TreeFocus {
     this.refreshDebouncer();
   }
 
+  /**
+   * Fired when a file has been renamed / moved.
+   */
+  onFileMoved(newPath: string, oldPath: string): void
+  {
+    Log.debug('file moved', 'newPath', newPath, 'oldPath', oldPath);
+
+    const explicitMode = PluginSettings.getExplicitMode(oldPath);
+
+    if (explicitMode)
+    {
+      PluginSettings.setExplicitMode(newPath, explicitMode);
+      PluginSettings.removeExplicitMode(oldPath);
+    }
+
+    this.requestRefresh();
+  }
+
+   /**
+   * Fired when a file has been deleted.
+   */
+   onFileDeleted(path: string): void
+   {
+     Log.debug('file deleted', path);
+ 
+     const explicitMode = PluginSettings.getExplicitMode(path);
+ 
+     if (explicitMode)
+     {
+       PluginSettings.removeExplicitMode(path);
+     }
+ 
+     this.requestRefresh();
+   }
+
 
   /**
-   * Fired when the settings of the plugin have changed.
+   * Fired when the settings of the plugin have been changed.
    */
   onSettingsChanged(): void
   {
     Log.log('settings changed');
-
-    const rules = PluginSettings.get('rules');
-    const fileOverwrites = PluginSettings.get('fileOverwrites');
-    ModeEvaluationService.updateConfig(rules, fileOverwrites);
 
     this.requestRefresh();
   }
