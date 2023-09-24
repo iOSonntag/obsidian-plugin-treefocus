@@ -69,18 +69,18 @@ module.exports = {
     //   ]
     // },
     [
-      "@semantic-release/git",
-      {
-        "assets": [
-          "package.json",
-          "package-lock.json",
-          "pnpm-lock.yaml",
-          "manifest.json",
-          "versions.json",
-          "CHANGELOG.md"
-        ],
-        "message": "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
+      // "@semantic-release/git",
+      // {
+      //   "assets": [
+      //     "package.json",
+      //     "package-lock.json",
+      //     "pnpm-lock.yaml",
+      //     "manifest.json",
+      //     "versions.json",
+      //     "CHANGELOG.md"
+      //   ],
+      //   "message": "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      // }
     ]
   ],
   "dryRun": false,
