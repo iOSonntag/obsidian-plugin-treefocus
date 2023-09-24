@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.0...v1.1.1) (2023-09-24)
+
+
+### Bug Fixes
+
+* **readme:** fixed readme ([9bc4a24](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/9bc4a241d25e79e64ca8e2837cc57c8dad2d177d))
+
 # [1.1.0](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.0.8...v1.1.0) (2023-09-24)
 
 
