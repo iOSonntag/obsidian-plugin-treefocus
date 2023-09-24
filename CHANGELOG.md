@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.0.8...v1.1.0) (2023-09-24)
+
+
+### Features
+
+* **better functionallity:** remove artifacts, keep renamed files & more ([0102555](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/01025550c1bca4511bbb73f85dbe03fa4a75118e))
+* **debug mode:** add automatic debug mode detection based on NODE_ENV ([874083a](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/874083a50d2aed4599555098f9cb8cd35417e85d))
+
 ## [1.0.8](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.0.7...v1.0.8) (2023-09-24)
 
 

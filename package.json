@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-treefocus",
-	"version": "1.0.8",
+	"version": "1.1.0",
 	"description": "Obsidian plugin: Highlight, dim & style your files & folders in the file explorer (navigation) based on predefined or custom rules.",
 	"main": "main.js",
 	"scripts": {
@@ -14,9 +14,9 @@
 	},
 	"keywords": [],
 	"author": {
-    "name": "iOSonntag",
-    "url": "https://iOSonntag.com"
-  },
+		"name": "iOSonntag",
+		"url": "https://iOSonntag.com"
+	},
 	"homepage": "https://iOSonntag.com",
 	"license": "MIT",
 	"devDependencies": {
