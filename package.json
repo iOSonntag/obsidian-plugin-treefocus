@@ -5,21 +5,30 @@
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
-    "tsc": "tsc -noEmit -skipLibCheck",
+		"tsc": "tsc -noEmit -skipLibCheck",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-		"version": "node version-bump.mjs && git add manifest.json versions.json"
+		"semantic-release": "semantic-release",
+		"version": "node version-bump.mjs && git add manifest.json versions.json",
+		"prepare": "husky install",
+		"commitlint": "commitlint --edit"
 	},
 	"keywords": [],
 	"author": "iOSonntag",
-  "homepage": "https://iOSonntag.com",
+	"homepage": "https://iOSonntag.com",
 	"license": "MIT",
 	"devDependencies": {
+		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/exec": "^6.0.3",
+		"@semantic-release/git": "^10.0.1",
 		"@types/node": "^16.11.6",
 		"@typescript-eslint/eslint-plugin": "5.29.0",
 		"@typescript-eslint/parser": "5.29.0",
 		"builtin-modules": "3.3.0",
+		"commitlint": "^17.7.1",
 		"esbuild": "0.17.3",
+		"husky": "^8.0.3",
 		"obsidian": "latest",
+		"semantic-release": "^22.0.4",
 		"tslib": "2.4.0",
 		"typescript": "4.7.4"
 	},
