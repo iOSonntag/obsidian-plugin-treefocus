@@ -34,33 +34,35 @@ jobs:
       - name: Print next version
         run: |
           echo ${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION }}
+          echo ${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION }}
           echo "The next version is ${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION && steps.chkVersion.outputs.NEXT_RELEASE_VERSION || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
-  
+
+
+      - name: Update version files and create tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Updating version files to $VERSION"
+          pnpm run version
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -am "chore(release): v${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION }} [skip ci]\n\n${{ steps.chkVersion.outputs.NEXT_RELEASE_NOTES }}"
+          git tag -a $VERSION -m "$VERSION"
+          git push origin $VERSION
+
+      
       - name: Build plugin
         run: |
-          pnpm install
           pnpm run build
 
-      # - name: Update version files and create tag
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     VERSION=$(node -p "require('./package.json').version")
-      #     echo "Updating version files to $VERSION"
-      #     pnpm run version
-          # git config user.name github-actions
-          # git config user.email github-actions@github.com
-          # git add .
-          # git commit -am "CI/CD: Updated version files to $VERSION"
-          # git tag -a $VERSION -m "$VERSION"
-          # git push origin $VERSION
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
 
-      # - name: Create release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     VERSION=$(node -p "require('./package.json').version")
-
-      #     gh release create "$VERSION" \
-      #       --title="Release v$VERSION" \
-      #       main.js manifest.json styles.css
+          gh release create "$VERSION" \
+            --title="Release v$VERSION" \
+            main.js manifest.json styles.css

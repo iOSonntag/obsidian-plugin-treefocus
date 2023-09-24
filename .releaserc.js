@@ -52,15 +52,15 @@ module.exports = {
         "populateVersion": "pnpm run version"
       }
     ],
-    [
-      "@semantic-release/exec",
-      {
-        "populateVersion": "VERSION=$(node -p \"require('./package.json').version\")\n" +
-          "gh release create \"$VERSION\" \
-          --title=\"Release v$VERSION\" \
-          main.js manifest.json styles.css"
-      }
-    ],
+    // [
+    //   "@semantic-release/exec",
+    //   {
+    //     "populateVersion": "VERSION=$(node -p \"require('./package.json').version\")\n" +
+    //       "gh release create \"$VERSION\" \
+    //       --title=\"Release v$VERSION\" \
+    //       main.js manifest.json styles.css"
+    //   }
+    // ],
     // "@semantic-release/github",
     // {
     //   "assets": [
