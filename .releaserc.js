@@ -68,7 +68,7 @@ module.exports = {
     //     { "path": "dist/asset.min.js", "label": "JS distribution" }
     //   ]
     // },
-    [
+    // [
       // "@semantic-release/git",
       // {
       //   "assets": [
@@ -81,7 +81,7 @@ module.exports = {
       //   ],
       //   "message": "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       // }
-    ]
+    // ]
   ],
   "dryRun": false,
   "preset": "angular"
