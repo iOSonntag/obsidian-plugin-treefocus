@@ -52,7 +52,22 @@ module.exports = {
         "populateVersion": "pnpm run version"
       }
     ],
-    "@semantic-release/github",
+    [
+      "@semantic-release/exec",
+      {
+        "populateVersion": "VERSION=$(node -p \"require('./package.json').version\")\n" +
+          "gh release create \"$VERSION\" \
+          --title=\"Release v$VERSION\" \
+          main.js manifest.json styles.css"
+      }
+    ],
+    // "@semantic-release/github",
+    // {
+    //   "assets": [
+    //     { "path": "dist/asset.min.css", "label": "CSS distribution" },
+    //     { "path": "dist/asset.min.js", "label": "JS distribution" }
+    //   ]
+    // },
     [
       "@semantic-release/git",
       {

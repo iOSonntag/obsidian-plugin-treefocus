@@ -55,12 +55,12 @@ jobs:
           # git tag -a $VERSION -m "$VERSION"
           # git push origin $VERSION
 
-      - name: Create release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
+      # - name: Create release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     VERSION=$(node -p "require('./package.json').version")
 
-          gh release create "$VERSION" \
-            --title="Release v$VERSION" \
-            main.js manifest.json styles.css
+      #     gh release create "$VERSION" \
+      #       --title="Release v$VERSION" \
+      #       main.js manifest.json styles.css
