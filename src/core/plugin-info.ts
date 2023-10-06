@@ -4,19 +4,26 @@ import { ErrorHelper } from '../util/error-helper';
 type HttpsUrl = `https://${string}`;
 type RepositoryType = 'git' | 'hg' | 'svn';
 type RepositoryProvider = 'GitHub' | 'GitLab' | 'Bitbucket' | 'Gitea' | 'Gogs' | 'Custom';
-interface TreeFocusPluginManifest extends PluginManifest {
-  repository?: {
-    type?: RepositoryType;
-    provider?: RepositoryProvider;
-    providerUrl?: HttpsUrl;
-    repoUrl?: HttpsUrl;
-    issuesUrl?: HttpsUrl;
-  }
+
+type RepositoryInfo = {
+  type?: RepositoryType;
+  provider?: RepositoryProvider;
+  providerUrl?: HttpsUrl;
+  repoUrl?: HttpsUrl;
+  issuesUrl?: HttpsUrl;
 }
+
 export abstract class PluginInfo {
 
   private static _obsidianVersion: string;
-  private static _manifest: TreeFocusPluginManifest;
+  private static _manifest: PluginManifest;
+  public static readonly repository: RepositoryInfo = {
+		type: 'git',
+		provider: 'GitHub',
+		providerUrl: 'https://github.com',
+		repoUrl: 'https://github.com/iOSonntag/obsidian-plugin-treefocus',
+		issuesUrl: 'https://github.com/iOSonntag/obsidian-plugin-treefocus/issues'
+  };
 
   static get obsidianVersion()
   {
@@ -26,9 +33,9 @@ export abstract class PluginInfo {
     }
 
     return this._obsidianVersion;
-  };
+  }
 
-  static get manifest(): TreeFocusPluginManifest
+  static get manifest(): PluginManifest
   {
     if (!this._manifest)
     {

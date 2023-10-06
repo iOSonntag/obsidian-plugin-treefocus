@@ -7,13 +7,6 @@
 	"author": "iOSonntag",
 	"authorUrl": "https://iOSonntag.com",
 	"isDesktopOnly": false,
-	"repository": {
-		"type": "git",
-		"provider": "GitHub",
-		"providerUrl": "https://github.com",
-		"repoUrl": "https://github.com/iOSonntag/obsidian-plugin-treefocus",
-		"issuesUrl": "https://github.com/iOSonntag/obsidian-plugin-treefocus/issues"
-	},
 	"fundingUrl": {
 		"Buy Me a Coffee": "https://www.buymeacoffee.com/iOSonntag",
 		"GitHub Sponsor": "https://github.com/sponsors/iOSonntag",
