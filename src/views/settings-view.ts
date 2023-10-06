@@ -54,7 +54,7 @@ export class SettingsView extends ObsidianSettingsTab {
 
   build(context: SettingsContext): void
   {
-    context.createSectionHeader('Transformation Style');
+    context.createSectionHeader('Transformation style');
 
     context.createSetting()
 			.setName('Preset')
@@ -69,21 +69,21 @@ export class SettingsView extends ObsidianSettingsTab {
 				}));
 
     context.createSectionDivider();
-    context.createSectionHeader('Transformation Rules', 'Define a set of rules that transform items (files and folders) in the file explorer.\n\nRules are checked in the order they are defined. The first rule that matches an item will be applied.\nIf an item has an explicit transformation set, rules are disabled for that item.');
+    context.createSectionHeader('Transformation rules', 'Define a set of rules that transform items (files and folders) in the file explorer.\n\nRules are checked in the order they are defined. The first rule that matches an item will be applied.\nIf an item has an explicit transformation set, rules are disabled for that item.');
 
     context.createSetting()
       .setHeading()
       .setName('Rules')
       .addButton(button => button
         .setCta()
-        .setButtonText('Reset to Defaults')
+        .setButtonText('Reset to defaults')
         .onClick(async () =>
         {
           await PluginSettings.resetMatchingRules();
           context.applySettings();
         }))
       .addButton(button => button
-        .setButtonText('Add Rule')
+        .setButtonText('Add rule')
         .onClick(async () =>
         {
           const rule = RulesHelper.createRule();
@@ -103,7 +103,7 @@ export class SettingsView extends ObsidianSettingsTab {
 
     
     context.createSectionDivider();
-    context.createSectionHeader('Explicit Transformations', 'Items with explicit transformation configuration. To add an item, right click it in the file explorer and select "Set Treefocus".');
+    context.createSectionHeader('Explicit transformations', 'Items with explicit transformation configuration. To add an item, right click it in the file explorer and select an option below "TreeFocus".');
 
 
     const fileOverwrites = PluginSettings.get('fileOverwrites');
@@ -119,7 +119,7 @@ export class SettingsView extends ObsidianSettingsTab {
 
 
     context.createSectionDivider();
-    context.createSectionHeader('Support This Plugin', 'If you like this plugin and want to support it - submit a feature request, a pull request or simply buy me a little coffee :) - Thank You.');
+    context.createSectionHeader('Support this plugin', 'If you like this plugin and want to support it - submit a feature request, a pull request or simply buy me a little coffee :) - Thank You.');
 
     context.createSupportLinks('iOSonntag', 'https://paypal.com/paypalme/iOSonntag/20');
   }
@@ -229,7 +229,7 @@ export class SettingsView extends ObsidianSettingsTab {
       .setDesc(rule)
       .addExtraButton(button => button
         .setIcon('trash')
-        .setTooltip('Remove Explicit Transformation')
+        .setTooltip('Remove explicit transformation')
         .onClick(async () =>
         {
           delete fileOverwrites[key];
