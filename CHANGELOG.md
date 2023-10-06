@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.1...v1.1.2) (2023-10-06)
+
+
+### Bug Fixes
+
+* **manifest:** removed unrecognized manifest key "repository" ([681cb99](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/681cb995891450c4123ef0633e527958637e5a4b))
+* **mobile:** moved debug logging to desktop only ([f4adaa9](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/f4adaa96588ed270345a66f82e583a2f17a61c47))
+* **settings:** converted texts into sentence case ([ddb0fb5](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/ddb0fb5cc7b9922d36cabd3d01662b26113d3b96))
+
 ## [1.1.1](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.0...v1.1.1) (2023-09-24)
 
 
