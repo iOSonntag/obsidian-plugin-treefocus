@@ -1,3 +1,4 @@
+import { Platform } from 'obsidian';
 import { PluginInfo } from 'src/core/plugin-info';
 
 
@@ -5,7 +6,7 @@ import { PluginInfo } from 'src/core/plugin-info';
 export class Log {
 
   /**
-     * Logs only if `process.env.NODE_ENV !== 'production'`.
+     * Logs only if `Platform.isDesktopApp` and if available `process.env.NODE_ENV !== 'production'`.
      * 
      * Adds useful information to the log message and then logs it using `console.log`.
      * 
@@ -14,10 +15,16 @@ export class Log {
      */
   static debug(message: string, ...args: any[])
   {
-    if (process.env.NODE_ENV === 'production') return;
+    if (Platform.isDesktopApp)
+    {
+      // in case it is unknown we assume production, even though it is not correct
+      // it serves the purpose of not logging, when not in dev mode.
 
-
-    console.log(`[DEBUG][${PluginInfo.pluginId}]: ${message}`, ...args);
+      if ((process?.env?.NODE_ENV ?? 'production') !== 'production')
+      {
+        console.log(`[DEBUG][${PluginInfo.pluginId}]: ${message}`, ...args);
+      }
+    }
   }
   
 
