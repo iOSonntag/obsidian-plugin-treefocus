@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.2...v1.1.3) (2023-12-25)
+
+
+### Bug Fixes
+
+* disable debug logging ([c6ec985](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/c6ec985f3a146efed0d928996f3698f3594a17f4))
+
 ## [1.1.2](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.1...v1.1.2) (2023-10-06)
 
 
