@@ -15,6 +15,7 @@ export class Log {
      */
   static debug(message: string, ...args: any[])
   {
+    return;
     if (Platform.isDesktopApp)
     {
       // in case it is unknown we assume production, even though it is not correct
