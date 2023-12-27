@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.3...v1.1.4) (2023-12-27)
+
+
+### Bug Fixes
+
+* disable EVENT and INFO logging ([7951a95](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/7951a95927e8e2c6631493a864602eebe0385a12))
+
 ## [1.1.3](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.2...v1.1.3) (2023-12-25)
 
 
