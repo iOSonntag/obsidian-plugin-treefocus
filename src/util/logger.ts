@@ -37,6 +37,7 @@ export class Log {
    */
   static log(message: string, ...args: any[])
   {
+    return;
     console.log(`[INFO] [${PluginInfo.pluginId}]: ${message}`, ...args);
   }
 
@@ -72,6 +73,7 @@ export class Log {
    */ 
   static eventFired(event: string, ...args: any[])
   {
+    return;
     console.log(`[EVENT][${PluginInfo.pluginId}]: ${event}`, ...args);
   }
 
