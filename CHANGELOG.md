@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.4...v1.1.5) (2026-05-27)
+
+
+### Bug Fixes
+
+* keep explicit focus modes across reloads ([c172e19](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/c172e199cbd3826c3fde162d8705f014e176e20a))
+
 ## [1.1.4](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.3...v1.1.4) (2023-12-27)
 
 
