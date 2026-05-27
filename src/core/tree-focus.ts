@@ -167,19 +167,8 @@ export class TreeFocus {
    */
   private async performPluginCleanupTask(): Promise<void>
   {
-    const allItemPaths: string[] = [];
-    let fileExplorers = this.getFileExplorers();
-
-    for (let fiExplorer of fileExplorers)
-    {
-      FileExplorerHelper.forEveryItem(fiExplorer, (path, item) =>
-      {
-        allItemPaths.push(path);
-      });
-    }
-
     const availableExplicitPaths = [...PluginSettings.getExplicitModePaths()];
-    const orphanedExplicitPaths = availableExplicitPaths.filter((path) => allItemPaths.includes(path) === false);
+    const orphanedExplicitPaths = availableExplicitPaths.filter((path) => this.app.vault.getAbstractFileByPath(path) === null);
     
     Log.debug('orphaned explicit paths', orphanedExplicitPaths);
 
@@ -332,5 +321,4 @@ export class TreeFocus {
 
   
 }
-
 
