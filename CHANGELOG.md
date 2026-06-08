@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.6...v1.1.7) (2026-06-08)
+
+
+### Bug Fixes
+
+* stop staging trivy cache in release workflow ([dd1f881](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/dd1f8810f596073da780b8b2d7b68d7e9040912d))
+
 ## [1.1.5](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.4...v1.1.5) (2026-05-27)
 
 
