@@ -5,51 +5,66 @@ on:
     branches:
       - master
 
+# Least-privilege token; the release steps below need to push tags & create releases.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      # Supply-chain gate: block the deploy on HIGH/CRITICAL vulnerabilities,
+      # leaked secrets, or misconfigurations before anything is built or released.
+      - name: Trivy security scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          node-version: "18.x"
-      
-      - uses: pnpm/action-setup@v2
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+        env:
+          # Also scan the build/CI dependency tree, not just runtime deps.
+          TRIVY_INCLUDE_DEV_DEPS: "true"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
-          version: 8
+          node-version: "22"
+          cache: pnpm
 
       - name: Install dependencies
-        run: |
-          pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Create new version & CHANGELOG.md
         id: chkVersion
-        run: npm run semantic-release
+        run: pnpm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
+
       - name: Print next version
         run: |
           echo ${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION }}
           echo ${{ steps.chkVersion.outputs.NEXT_RELEASE_NOTES }}
           echo "The next version is ${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION && steps.chkVersion.outputs.NEXT_RELEASE_VERSION || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
 
-
       - name: Update version files and create tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-        
           pnpm run version
           git add .
 
-      
       - name: Build plugin
-        run: |
-          pnpm run build
+        run: pnpm run build
 
       - name: Create release
         env:
@@ -60,7 +75,7 @@ jobs:
           gh release create "$VERSION" \
             --title="Release v$VERSION" \
             main.js manifest.json styles.css
-      
+
       - name: Push Tag and staged Files
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
