@@ -61,7 +61,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pnpm run version
-          git add .
+          # Stage only tracked changes (package.json, manifest.json, versions.json,
+          # CHANGELOG.md). Never `git add .` here: the Trivy scan writes its multi-GB
+          # vuln DB into ./.cache, which would otherwise be staged and blow past
+          # GitHub's 100 MB push limit.
+          git add -u
 
       - name: Build plugin
         run: pnpm run build
