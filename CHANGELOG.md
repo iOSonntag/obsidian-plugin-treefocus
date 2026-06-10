@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.7...v1.1.8) (2026-06-10)
+
+
+### Bug Fixes
+
+* attest release artifacts with build provenance ([a2d21ea](https://github.com/iOSonntag/obsidian-plugin-treefocus/commit/a2d21ea8323c5f0a98f6e4b2eed895a893d09649))
+
 ## [1.1.7](https://github.com/iOSonntag/obsidian-plugin-treefocus/compare/v1.1.6...v1.1.7) (2026-06-08)
 
 
