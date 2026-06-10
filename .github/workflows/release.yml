@@ -57,6 +57,9 @@ jobs:
           echo "The next version is ${{ steps.chkVersion.outputs.NEXT_RELEASE_VERSION && steps.chkVersion.outputs.NEXT_RELEASE_VERSION || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
 
       - name: Update version files and create tag
+        # Only when semantic-release actually cut a version. Docs/chore/ci pushes
+        # produce no release, so these steps are skipped and the run stays green.
+        if: steps.chkVersion.outputs.NEXT_RELEASE_VERSION != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -71,6 +74,7 @@ jobs:
         run: pnpm run build
 
       - name: Create release
+        if: steps.chkVersion.outputs.NEXT_RELEASE_VERSION != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -81,6 +85,7 @@ jobs:
             main.js manifest.json styles.css
 
       - name: Push Tag and staged Files
+        if: steps.chkVersion.outputs.NEXT_RELEASE_VERSION != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
