@@ -5,9 +5,11 @@ on:
     branches:
       - master
 
-# Least-privilege token; the release steps below need to push tags & create releases.
+# Least-privilege token.
 permissions:
-  contents: write
+  contents: write      # push the release commit/tag and create the GitHub release
+  id-token: write      # OIDC token for build-provenance attestation (Sigstore signing)
+  attestations: write  # publish the artifact attestation
 
 jobs:
   build:
@@ -83,6 +85,18 @@ jobs:
           gh release create "$VERSION" \
             --title="Release v$VERSION" \
             main.js manifest.json styles.css
+
+      # Build provenance: cryptographically attest (via Sigstore) that these exact
+      # artifacts were produced by this workflow from this commit. Lets users verify
+      # the release with `gh attestation verify main.js --repo <owner>/<repo>`.
+      - name: Attest build provenance
+        if: steps.chkVersion.outputs.NEXT_RELEASE_VERSION != ''
+        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v4.1.0
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
 
       - name: Push Tag and staged Files
         if: steps.chkVersion.outputs.NEXT_RELEASE_VERSION != ''
