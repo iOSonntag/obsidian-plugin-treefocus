@@ -2,6 +2,7 @@
 
 > **Highlight**, **dim** and **style** the files and folders in your Obsidian file explorer - automatically, with rules, or item by item.
 
+[![downloads](https://img.shields.io/github/downloads/iOSonntag/obsidian-plugin-treefocus/total?label=downloads&color=7c3aed&logo=github)](https://github.com/iOSonntag/obsidian-plugin-treefocus/releases)
 [![version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FiOSonntag%2Fobsidian-plugin-treefocus%2Fmaster%2Fmanifest.json&query=%24.version&label=version&color=7c3aed)](https://github.com/iOSonntag/obsidian-plugin-treefocus/releases)
 [![obsidian](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FiOSonntag%2Fobsidian-plugin-treefocus%2Fmaster%2Fmanifest.json&query=%24.minAppVersion&label=obsidian&color=7c3aed)](https://obsidian.md)
 [![build](https://github.com/iOSonntag/obsidian-plugin-treefocus/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/iOSonntag/obsidian-plugin-treefocus/actions/workflows/release.yml)
